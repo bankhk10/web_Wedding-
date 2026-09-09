@@ -1,2 +1,5 @@
 # Installed dependencies
 node_modules/
+
+# Generated production build
+dist/
