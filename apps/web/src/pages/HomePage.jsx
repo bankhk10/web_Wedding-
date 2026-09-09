@@ -10,7 +10,8 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 
-const UP = 'https://e-card.manitawedding.com/wp-content/uploads';
+// Static assets served from apps/web/public/images/cha-art.
+const UP = '/images/cha-art';
 
 const GALLERY = [
   'wedding-couple-indoors-is-hugging-each-other-beautiful-model-woman-white-dress-man-suit-be-1-scaled.jpg',
