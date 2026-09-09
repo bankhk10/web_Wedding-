@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { MapPin, PenLine, MessageCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MapPin, MessageCircle, PenLine, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Reveal from '@/components/Reveal';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -47,7 +49,10 @@ function useCountdown() {
 function GallerySlider() {
   const [page, setPage] = useState(0);
   const [perView, setPerView] = useState(3);
+  const [activeIndex, setActiveIndex] = useState(null);
   const timer = useRef(null);
+  const triggerRef = useRef(null);
+  const touchStartX = useRef(null);
 
   useEffect(() => {
     const update = () =>
@@ -68,6 +73,55 @@ function GallerySlider() {
     if (page >= pages) setPage(0);
   }, [pages, page]);
 
+  const closeLightbox = useCallback(() => {
+    setActiveIndex(null);
+    window.requestAnimationFrame(() => triggerRef.current?.focus());
+  }, []);
+
+  const showPrevious = useCallback(() => {
+    setActiveIndex((index) => (index === null ? 0 : (index - 1 + GALLERY.length) % GALLERY.length));
+  }, []);
+
+  const showNext = useCallback(() => {
+    setActiveIndex((index) => (index === null ? 0 : (index + 1) % GALLERY.length));
+  }, []);
+
+  useEffect(() => {
+    if (activeIndex === null) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        showPrevious();
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        showNext();
+      }
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeLightbox();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [activeIndex, closeLightbox, showNext, showPrevious]);
+
+  const handleOpenChange = (open) => {
+    if (!open) closeLightbox();
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX.current === null) return;
+    const distance = event.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+
+    if (Math.abs(distance) < 40) return;
+    if (distance > 0) showPrevious();
+    else showNext();
+  };
+
   return (
     <div className="w-full">
       <div className="overflow-hidden">
@@ -76,22 +130,36 @@ function GallerySlider() {
           style={{ transform: `translateX(-${page * 100}%)` }}
         >
           {Array.from({ length: pages }).map((_, pi) => (
-            <div key={pi} className="flex w-full shrink-0 gap-1 px-1">
-              {GALLERY.slice(pi * perView, pi * perView + perView).map((src) => (
-                <div key={src} className="w-full" style={{ maxWidth: `${100 / perView}%` }}>
-                  <img
-                    src={src}
-                    alt="Cha and Art pre-wedding"
-                    loading="lazy"
-                    className="aspect-[2/3] w-full object-cover"
-                  />
-                </div>
-              ))}
+            <div key={pi} className="flex w-full gap-1 px-1 shrink-0">
+              {GALLERY.slice(pi * perView, pi * perView + perView).map((src, imageOffset) => {
+                const imageIndex = pi * perView + imageOffset;
+                return (
+                  <div key={src} className="w-full" style={{ maxWidth: `${100 / perView}%` }}>
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        triggerRef.current = event.currentTarget;
+                        setActiveIndex(imageIndex);
+                      }}
+                      aria-label={`Open pre-wedding photo ${imageIndex + 1} of ${GALLERY.length}`}
+                      className="relative block w-full overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800 focus-visible:ring-offset-2"
+                    >
+                      <img
+                        src={src}
+                        alt={`Cha and Art pre-wedding photo ${imageIndex + 1}`}
+                        loading="lazy"
+                        className="aspect-[2/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105"
+                      />
+                      <span className="absolute inset-0 transition-colors duration-300 bg-black/0 group-hover:bg-black/10 group-focus-visible:bg-black/10" />
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
       </div>
-      <div className="mt-4 flex justify-center gap-2">
+      <div className="flex justify-center gap-2 mt-4">
         {Array.from({ length: pages }).map((_, i) => (
           <button
             key={i}
@@ -103,6 +171,100 @@ function GallerySlider() {
           />
         ))}
       </div>
+
+      <Dialog open={activeIndex !== null} onOpenChange={handleOpenChange}>
+        <DialogContent
+          className="!left-0 !top-0 !flex !h-[100dvh] !w-full !max-w-none !translate-x-0 !translate-y-0 !flex-col !gap-0 border-0 bg-transparent p-0 shadow-none sm:rounded-none [&>button:last-child]:hidden"
+        >
+          <DialogTitle className="sr-only">Pre-wedding photo viewer</DialogTitle>
+          <DialogDescription className="sr-only">
+            Use the previous and next controls, arrow keys, or swipe to browse the gallery.
+          </DialogDescription>
+
+          <div
+            className="relative flex items-center justify-center flex-1 min-h-0 px-3 pt-12 pb-2 sm:px-20"
+            onPointerDown={(event) => {
+              if (event.target === event.currentTarget) closeLightbox();
+            }}
+            onTouchStart={(event) => {
+              touchStartX.current = event.touches[0].clientX;
+            }}
+            onTouchEnd={handleTouchEnd}
+          >
+            <span className="absolute px-3 py-1 text-sm text-white rounded-full left-4 top-5 bg-black/50 tabular-nums sm:left-6">
+              {activeIndex + 1} / {GALLERY.length}
+            </span>
+
+            <DialogClose asChild>
+              <button
+                type="button"
+                aria-label="Close photo viewer"
+                className="absolute z-20 flex items-center justify-center text-white transition-colors rounded-full right-4 top-4 h-11 w-11 bg-black/50 hover:bg-black/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              >
+                <X className="w-5 h-5" aria-hidden="true" />
+              </button>
+            </DialogClose>
+
+            <button
+              type="button"
+              onClick={showPrevious}
+              aria-label="Previous photo"
+              className="absolute z-10 flex items-center justify-center w-12 h-12 text-white transition-colors rounded-full left-2 bg-black/50 hover:bg-black/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-6"
+            >
+              <ChevronLeft className="h-7 w-7" aria-hidden="true" />
+            </button>
+
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.img
+                key={activeIndex}
+                src={GALLERY[activeIndex]}
+                alt={`Cha and Art pre-wedding photo ${activeIndex + 1}`}
+                initial={{ opacity: 0, scale: 0.985 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.985 }}
+                transition={{ duration: 0.22, ease: 'easeOut' }}
+                className="object-contain max-w-full max-h-full shadow-2xl select-none"
+                draggable="false"
+              />
+            </AnimatePresence>
+
+            <button
+              type="button"
+              onClick={showNext}
+              aria-label="Next photo"
+              className="absolute z-10 flex items-center justify-center w-12 h-12 text-white transition-colors rounded-full right-2 bg-black/50 hover:bg-black/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-6"
+            >
+              <ChevronRight className="h-7 w-7" aria-hidden="true" />
+            </button>
+          </div>
+
+          <div
+            className="flex shrink-0 gap-2 overflow-x-auto px-4 pb-5 pt-2 [scrollbar-width:thin]"
+            aria-label="Gallery thumbnails"
+          >
+            {GALLERY.map((src, index) => (
+              <button
+                key={src}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`View photo ${index + 1}`}
+                aria-current={index === activeIndex ? 'true' : undefined}
+                className={`h-16 w-12 shrink-0 overflow-hidden rounded-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:h-20 sm:w-14 ${
+                  index === activeIndex
+                    ? 'ring-2 ring-white ring-offset-2 ring-offset-black opacity-100'
+                    : 'opacity-60 hover:opacity-100'
+                }`}
+              >
+                <img
+                  src={src}
+                  alt={`Thumbnail for pre-wedding photo ${index + 1}`}
+                  className="object-cover w-full h-full"
+                />
+              </button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
@@ -113,17 +275,17 @@ function GuestbookDialog({ open, onOpenChange }) {
   const [wish, setWish] = useState('');
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="rounded-2xl bg-white sm:max-w-md">
+      <DialogContent className="bg-white rounded-2xl sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center font-light tracking-[0.2em]">
             DIGITAL GUESTBOOK
           </DialogTitle>
-          <DialogDescription className="text-center font-light">
+          <DialogDescription className="font-light text-center">
             เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา
           </DialogDescription>
         </DialogHeader>
         {sent ? (
-          <p className="py-8 text-center font-light text-neutral-600">
+          <p className="py-8 font-light text-center text-neutral-600">
             ขอบคุณสำหรับคำอวยพรนะคะ/ครับ
           </p>
         ) : (
@@ -141,7 +303,7 @@ function GuestbookDialog({ open, onOpenChange }) {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-full border border-neutral-300 px-4 py-2 font-light outline-none focus:border-neutral-800"
+                className="w-full px-4 py-2 font-light border rounded-full outline-none border-neutral-300 focus:border-neutral-800"
               />
             </div>
             <div className="space-y-2">
@@ -152,7 +314,7 @@ function GuestbookDialog({ open, onOpenChange }) {
                 rows={4}
                 value={wish}
                 onChange={(e) => setWish(e.target.value)}
-                className="w-full rounded-2xl border border-neutral-300 px-4 py-2 font-light outline-none focus:border-neutral-800"
+                className="w-full px-4 py-2 font-light border outline-none rounded-2xl border-neutral-300 focus:border-neutral-800"
               />
             </div>
             <button
@@ -173,7 +335,7 @@ export default function HomePage() {
   const [gbOpen, setGbOpen] = useState(false);
 
   return (
-    <main className="bg-white font-light text-neutral-700">
+    <main className="font-light bg-white text-neutral-700">
       <Helmet>
         <title>Cha &amp; Art | การ์ดแต่งงานออนไลน์</title>
         <meta
@@ -187,7 +349,7 @@ export default function HomePage() {
         <img
           src={`${UP}/2025/03/R24-053_01.jpg`}
           alt="การ์ดแต่งงานออนไลน์ Cha and Art"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 object-cover w-full h-full"
         />
         <Reveal y={30}>
           <img
@@ -199,15 +361,15 @@ export default function HomePage() {
       </section>
 
       {/* Invitation */}
-      <section className="mx-auto max-w-6xl px-6 py-16 text-center md:py-24">
+      <section className="max-w-6xl px-6 py-16 mx-auto text-center md:py-24">
         <Reveal>
           <img
             src={`${UP}/2024/12/Asset-18.png`}
             alt="The honour of your presence is requested at the marriage celebration of"
-            className="mx-auto w-full max-w-2xl"
+            className="w-full max-w-2xl mx-auto"
           />
         </Reveal>
-        <div className="mt-14 grid grid-cols-1 items-start justify-items-center gap-12 md:grid-cols-2">
+        <div className="grid items-start grid-cols-1 gap-12 mt-14 justify-items-center md:grid-cols-2">
           <Reveal y={40}>
             <img
               src={`${UP}/2025/03/R24-053_04.png`}
@@ -228,7 +390,7 @@ export default function HomePage() {
       </section>
 
       {/* Countdown */}
-      <section className="mx-auto max-w-4xl px-6 py-16 text-center md:py-24">
+      <section className="max-w-4xl px-6 py-16 mx-auto text-center md:py-24">
         <Reveal>
           <img src={`${UP}/2025/03/R24-053_01.png`} alt="Cha Art" className="mx-auto w-28 md:w-36" loading="lazy" />
         </Reveal>
@@ -236,7 +398,7 @@ export default function HomePage() {
           <img
             src={`${UP}/2025/05/R17-052-20.png`}
             alt="Let's celebrate together on our special day on"
-            className="mx-auto mt-8 w-full max-w-md"
+            className="w-full max-w-md mx-auto mt-8"
             loading="lazy"
           />
         </Reveal>
@@ -244,12 +406,12 @@ export default function HomePage() {
           <img
             src={`${UP}/2025/03/R24-053_06.png`}
             alt="25 May 26"
-            className="mx-auto w-full max-w-md"
+            className="w-full max-w-md mx-auto"
             loading="lazy"
           />
         </Reveal>
         <Reveal delay={0.2}>
-          <div className="mt-10 flex items-start justify-center gap-10 sm:gap-16">
+          <div className="flex items-start justify-center gap-10 mt-10 sm:gap-16">
             {[
               [days, 'DAYS'],
               [hours, 'HOURS'],
@@ -278,15 +440,15 @@ export default function HomePage() {
       </section>
 
       {/* Schedule */}
-      <section className="mx-auto max-w-5xl px-6 py-16 text-center md:py-24">
+      <section className="max-w-5xl px-6 py-16 mx-auto text-center md:py-24">
         <Reveal>
-          <img src={`${UP}/2024/12/Asset-21.png`} alt="Schedule" className="mx-auto w-full max-w-xl" loading="lazy" />
+          <img src={`${UP}/2024/12/Asset-21.png`} alt="Schedule" className="w-full max-w-xl mx-auto" loading="lazy" />
         </Reveal>
         <Reveal delay={0.1}>
           <img
             src={`${UP}/2025/03/R24-053-03-768x723.jpg`}
             alt="Cha and Art"
-            className="mx-auto mt-10 w-full max-w-3xl object-cover"
+            className="object-cover w-full max-w-3xl mx-auto mt-10"
             loading="lazy"
           />
         </Reveal>
@@ -294,25 +456,25 @@ export default function HomePage() {
           <img
             src={`${UP}/2025/03/R24-053.png`}
             alt="กำหนดการงานแต่งงาน"
-            className="mx-auto mt-10 w-full max-w-2xl"
+            className="w-full max-w-2xl mx-auto mt-10"
             loading="lazy"
           />
         </Reveal>
       </section>
 
       {/* Gallery */}
-      <section className="mx-auto max-w-6xl px-6 py-16 text-center md:py-24">
+      <section className="max-w-6xl px-6 py-16 mx-auto text-center md:py-24">
         <Reveal>
-          <h2 className="text-3xl font-extralight tracking-wide text-neutral-800">Gallery</h2>
+          <h2 className="text-3xl tracking-wide font-extralight text-neutral-800">Gallery</h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="mx-auto mt-10 aspect-video w-full max-w-2xl">
+          <div className="w-full max-w-2xl mx-auto mt-10 aspect-video">
             <iframe
               src="https://www.youtube-nocookie.com/embed/3sxwcJh4Q5s?controls=1"
               title="SAMPLE VDO MOBILE WEDDING CARD"
               allow="autoplay; fullscreen"
               allowFullScreen
-              className="h-full w-full border-0"
+              className="w-full h-full border-0"
               loading="lazy"
             />
           </div>
@@ -325,24 +487,24 @@ export default function HomePage() {
       </section>
 
       {/* RSVP */}
-      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <section className="max-w-6xl px-6 py-16 mx-auto md:py-24">
         <Reveal>
           <img
             src={`${UP}/2025/07/Asset-25-768x154-1.png`}
             alt="R.S.V.P"
-            className="mx-auto w-full max-w-lg"
+            className="w-full max-w-lg mx-auto"
             loading="lazy"
           />
         </Reveal>
-        <div className="mt-12 grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+        <div className="grid items-center grid-cols-1 gap-12 mt-12 md:grid-cols-2">
           <Reveal className="text-center">
-            <p className="mx-auto max-w-md text-lg italic leading-relaxed">
+            <p className="max-w-md mx-auto text-lg italic leading-relaxed">
               <strong className="font-semibold">
                 “เพื่อให้เราสามารถวางแผนในการดูแลท่าน ซึ่งเป็นแขกคนสำคัญได้อย่างเต็มที่
                 ขอรบกวนทุกท่านทำแบบตอบรับการเข้าร่วมงานให้เราด้วยนะคะ/ครับ”
               </strong>
             </p>
-            <p className="mt-6 uppercase italic tracking-widest">Hope to see you at our wedding</p>
+            <p className="mt-6 italic tracking-widest uppercase">Hope to see you at our wedding</p>
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSeSm2ywJBxV6uqrbjHFUQbNLG6SuVDqo_hfoJjRI2AD5lCPiw/viewform?usp=sf_link"
               target="_blank"
@@ -356,7 +518,7 @@ export default function HomePage() {
             <img
               src={`${UP}/2025/03/bride-groom-pose-photo-2-768x1152.jpg`}
               alt="Cha and Art"
-              className="mx-auto w-full max-w-md object-cover"
+              className="object-cover w-full max-w-md mx-auto"
               loading="lazy"
             />
           </Reveal>
@@ -364,7 +526,7 @@ export default function HomePage() {
       </section>
 
       {/* Guestbook */}
-      <section className="mx-auto max-w-3xl px-6 py-16 text-center md:py-24">
+      <section className="max-w-3xl px-6 py-16 mx-auto text-center md:py-24">
         <Reveal>
           <h2 className="text-3xl font-extralight tracking-[0.25em] text-neutral-800">
             DIGITAL GUESTBOOK
@@ -376,16 +538,16 @@ export default function HomePage() {
             onClick={() => setGbOpen(true)}
             className="mt-8 inline-flex items-center gap-2 rounded-full border border-neutral-800 px-8 py-2.5 text-sm text-neutral-800 transition-colors hover:bg-neutral-800 hover:text-white active:scale-[0.98]"
           >
-            <PenLine className="h-4 w-4" />
+            <PenLine className="w-4 h-4" />
             เขียนคำอวยพรดิจิตอล
           </button>
         </Reveal>
       </section>
 
       {/* Venue */}
-      <section className="mx-auto max-w-6xl px-6 py-16 text-center md:py-24">
+      <section className="max-w-6xl px-6 py-16 mx-auto text-center md:py-24">
         <Reveal>
-          <MapPin className="mx-auto h-6 w-6 text-neutral-800" />
+          <MapPin className="w-6 h-6 mx-auto text-neutral-800" />
           <h2 className="mt-3 text-2xl font-light text-neutral-800">The Venue</h2>
           <p className="mt-1 text-xl font-light text-neutral-700">The Peninsula Bangkok Resort</p>
         </Reveal>
@@ -400,8 +562,8 @@ export default function HomePage() {
           </div>
         </Reveal>
         <Reveal delay={0.15}>
-          <p className="mt-6 flex items-center justify-center gap-2 font-light">
-            <MapPin className="h-4 w-4" />
+          <p className="flex items-center justify-center gap-2 mt-6 font-light">
+            <MapPin className="w-4 h-4" />
             333 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600
           </p>
           <a
@@ -416,7 +578,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-6 pb-16 pt-8 text-center">
+      <footer className="px-6 pt-8 pb-16 text-center">
         <p className="text-sm font-light text-neutral-600">Powered by</p>
         <p className="mt-2 text-4xl font-normal tracking-tight text-neutral-800">M</p>
         <p className="mt-1 text-sm tracking-[0.35em] text-neutral-700">MANITA WEDDING</p>
@@ -429,11 +591,11 @@ export default function HomePage() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="ติดต่อเรา"
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2"
+        className="fixed z-40 flex items-center gap-2 bottom-6 right-6"
       >
-        <span className="rounded-full bg-white px-3 py-1 text-xs shadow-md">ติดต่อเรา</span>
-        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white shadow-lg transition-transform hover:scale-105">
-          <MessageCircle className="h-6 w-6" />
+        <span className="px-3 py-1 text-xs bg-white rounded-full shadow-md">ติดต่อเรา</span>
+        <span className="flex items-center justify-center w-12 h-12 text-white transition-transform bg-green-500 rounded-full shadow-lg hover:scale-105">
+          <MessageCircle className="w-6 h-6" />
         </span>
       </a>
 
