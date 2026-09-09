@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { ChevronLeft, ChevronRight, MapPin, MessageCircle, PenLine, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MapPin, Maximize2, MessageCircle, PenLine, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Reveal from '@/components/Reveal';
 import {
@@ -142,7 +142,7 @@ function GallerySlider() {
                         setActiveIndex(imageIndex);
                       }}
                       aria-label={`Open pre-wedding photo ${imageIndex + 1} of ${GALLERY.length}`}
-                      className="relative block w-full overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800 focus-visible:ring-offset-2"
+                      className="group relative block w-full overflow-hidden rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C62828] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF5F7]"
                     >
                       <img
                         src={src}
@@ -150,7 +150,10 @@ function GallerySlider() {
                         loading="lazy"
                         className="aspect-[2/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105"
                       />
-                      <span className="absolute inset-0 transition-colors duration-300 bg-black/0 group-hover:bg-black/10 group-focus-visible:bg-black/10" />
+                      <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#8E1B1B]/45 via-[#C62828]/10 to-[#E91E63]/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                      <span className="pointer-events-none absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-[#C62828] opacity-0 shadow-[0_8px_24px_rgba(142,27,27,0.18)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 scale-90">
+                        <Maximize2 className="h-4 w-4" aria-hidden="true" />
+                      </span>
                     </button>
                   </div>
                 );
@@ -166,7 +169,7 @@ function GallerySlider() {
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => setPage(i)}
             className={`h-2 w-2 rounded-full transition-colors ${
-              i === page ? 'bg-neutral-800' : 'bg-neutral-300'
+              i === page ? 'bg-[#C62828]' : 'bg-[#F3C7D5] hover:bg-[#E91E63]/60'
             }`}
           />
         ))}
@@ -199,7 +202,7 @@ function GallerySlider() {
               <button
                 type="button"
                 aria-label="Close photo viewer"
-                className="absolute z-20 flex items-center justify-center text-white transition-colors rounded-full right-4 top-4 h-11 w-11 bg-black/50 hover:bg-black/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="absolute z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-[#8E1B1B] shadow-lg shadow-black/20 transition-colors right-4 top-4 hover:bg-[#FCE4EC] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <X className="w-5 h-5" aria-hidden="true" />
               </button>
@@ -209,7 +212,7 @@ function GallerySlider() {
               type="button"
               onClick={showPrevious}
               aria-label="Previous photo"
-              className="absolute z-10 flex items-center justify-center w-12 h-12 text-white transition-colors rounded-full left-2 bg-black/50 hover:bg-black/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-6"
+              className="absolute z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-[#8E1B1B] shadow-lg shadow-black/20 transition-colors left-2 hover:bg-[#FCE4EC] focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-6"
             >
               <ChevronLeft className="h-7 w-7" aria-hidden="true" />
             </button>
@@ -232,7 +235,7 @@ function GallerySlider() {
               type="button"
               onClick={showNext}
               aria-label="Next photo"
-              className="absolute z-10 flex items-center justify-center w-12 h-12 text-white transition-colors rounded-full right-2 bg-black/50 hover:bg-black/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-6"
+              className="absolute z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-[#8E1B1B] shadow-lg shadow-black/20 transition-colors right-2 hover:bg-[#FCE4EC] focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-6"
             >
               <ChevronRight className="h-7 w-7" aria-hidden="true" />
             </button>
@@ -251,7 +254,7 @@ function GallerySlider() {
                 aria-current={index === activeIndex ? 'true' : undefined}
                 className={`h-16 w-12 shrink-0 overflow-hidden rounded-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:h-20 sm:w-14 ${
                   index === activeIndex
-                    ? 'ring-2 ring-white ring-offset-2 ring-offset-black opacity-100'
+                    ? 'ring-2 ring-[#E91E63] ring-offset-2 ring-offset-black opacity-100'
                     : 'opacity-60 hover:opacity-100'
                 }`}
               >
@@ -275,17 +278,17 @@ function GuestbookDialog({ open, onOpenChange }) {
   const [wish, setWish] = useState('');
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white rounded-2xl sm:max-w-md">
+      <DialogContent className="rounded-3xl border border-[#F3C7D5] bg-white p-6 shadow-[0_24px_80px_rgba(142,27,27,0.16)] sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-center font-light tracking-[0.2em]">
+          <DialogTitle className="text-center font-medium tracking-[0.2em] text-[#8E1B1B]">
             DIGITAL GUESTBOOK
           </DialogTitle>
-          <DialogDescription className="font-light text-center">
+          <DialogDescription className="text-center font-light text-[#7A5A61]">
             เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา
           </DialogDescription>
         </DialogHeader>
         {sent ? (
-          <p className="py-8 font-light text-center text-neutral-600">
+          <p className="py-8 text-center font-light text-[#7A5A61]">
             ขอบคุณสำหรับคำอวยพรนะคะ/ครับ
           </p>
         ) : (
@@ -297,29 +300,29 @@ function GuestbookDialog({ open, onOpenChange }) {
             }}
           >
             <div className="space-y-2">
-              <label htmlFor="gb-name" className="text-sm font-light">ชื่อของคุณ</label>
+              <label htmlFor="gb-name" className="text-sm font-medium text-[#3A1F24]">ชื่อของคุณ</label>
               <input
                 id="gb-name"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2 font-light border rounded-full outline-none border-neutral-300 focus:border-neutral-800"
+                className="w-full rounded-full border border-[#F3C7D5] bg-[#FFF9FA] px-4 py-2 font-light text-[#3A1F24] outline-none transition-colors placeholder:text-[#B8909A] focus:border-[#E91E63] focus:ring-2 focus:ring-[#FCE4EC]"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="gb-wish" className="text-sm font-light">คำอวยพร</label>
+              <label htmlFor="gb-wish" className="text-sm font-medium text-[#3A1F24]">คำอวยพร</label>
               <textarea
                 id="gb-wish"
                 required
                 rows={4}
                 value={wish}
                 onChange={(e) => setWish(e.target.value)}
-                className="w-full px-4 py-2 font-light border outline-none rounded-2xl border-neutral-300 focus:border-neutral-800"
+                className="w-full rounded-2xl border border-[#F3C7D5] bg-[#FFF9FA] px-4 py-2 font-light text-[#3A1F24] outline-none transition-colors placeholder:text-[#B8909A] focus:border-[#E91E63] focus:ring-2 focus:ring-[#FCE4EC]"
               />
             </div>
             <button
               type="submit"
-              className="w-full rounded-full border border-neutral-800 py-2.5 tracking-[0.2em] transition-colors hover:bg-neutral-800 hover:text-white active:scale-[0.98]"
+              className="w-full rounded-full bg-[#C62828] py-2.5 tracking-[0.2em] text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
             >
               ส่งคำอวยพร
             </button>
@@ -335,7 +338,7 @@ export default function HomePage() {
   const [gbOpen, setGbOpen] = useState(false);
 
   return (
-    <main className="font-light bg-white text-neutral-700">
+    <main className="bg-[#FFF9FA] font-light text-[#3A1F24]">
       <Helmet>
         <title>Cha &amp; Art | การ์ดแต่งงานออนไลน์</title>
         <meta
@@ -345,23 +348,24 @@ export default function HomePage() {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[#3A1F24]">
         <img
           src={`${UP}/2025/03/R24-053_01.jpg`}
           alt="การ์ดแต่งงานออนไลน์ Cha and Art"
           className="absolute inset-0 object-cover w-full h-full"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#3A1F24]/10 via-transparent to-[#8E1B1B]/45" />
         <Reveal y={30}>
           <img
             src={`${UP}/2025/03/R24-053_01.png`}
             alt="Cha Art"
-            className="relative w-40 sm:w-56 md:w-64"
+            className="relative w-40 drop-shadow-[0_10px_24px_rgba(58,31,36,0.3)] sm:w-56 md:w-64"
           />
         </Reveal>
       </section>
 
       {/* Invitation */}
-      <section className="max-w-6xl px-6 py-16 mx-auto text-center md:py-24">
+      <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
           <img
             src={`${UP}/2024/12/Asset-18.png`}
@@ -390,7 +394,7 @@ export default function HomePage() {
       </section>
 
       {/* Countdown */}
-      <section className="max-w-4xl px-6 py-16 mx-auto text-center md:py-24">
+      <section className="mx-auto my-6 max-w-4xl rounded-[2rem] border border-[#F7D8E2] bg-[#FCE4EC]/70 px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
           <img src={`${UP}/2025/03/R24-053_01.png`} alt="Cha Art" className="mx-auto w-28 md:w-36" loading="lazy" />
         </Reveal>
@@ -419,8 +423,8 @@ export default function HomePage() {
               [secs, 'SEC'],
             ].map(([v, label]) => (
               <div key={label} className="w-16">
-                <div className="text-4xl font-normal text-neutral-800 sm:text-5xl">{v}</div>
-                <div className="mt-1 text-xs font-semibold tracking-widest text-neutral-600">
+                <div className="text-4xl font-medium text-[#8E1B1B] sm:text-5xl">{v}</div>
+                <div className="mt-1 text-xs font-semibold tracking-widest text-[#7A5A61]">
                   {label}
                 </div>
               </div>
@@ -432,7 +436,7 @@ export default function HomePage() {
             href={`${UP}/2025/03/R24-053.ics`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-10 inline-block rounded-full border border-neutral-800 px-8 py-2.5 text-sm tracking-[0.2em] text-neutral-800 transition-colors hover:bg-neutral-800 hover:text-white active:scale-[0.98]"
+            className="mt-10 inline-block rounded-full bg-[#C62828] px-8 py-2.5 text-sm tracking-[0.2em] text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
           >
             ADD TO CALENDAR
           </a>
@@ -440,7 +444,7 @@ export default function HomePage() {
       </section>
 
       {/* Schedule */}
-      <section className="max-w-5xl px-6 py-16 mx-auto text-center md:py-24">
+      <section className="mx-auto my-6 max-w-5xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
           <img src={`${UP}/2024/12/Asset-21.png`} alt="Schedule" className="w-full max-w-xl mx-auto" loading="lazy" />
         </Reveal>
@@ -448,7 +452,7 @@ export default function HomePage() {
           <img
             src={`${UP}/2025/03/R24-053-03-768x723.jpg`}
             alt="Cha and Art"
-            className="object-cover w-full max-w-3xl mx-auto mt-10"
+            className="mx-auto mt-10 w-full max-w-3xl rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
             loading="lazy"
           />
         </Reveal>
@@ -463,12 +467,12 @@ export default function HomePage() {
       </section>
 
       {/* Gallery */}
-      <section className="max-w-6xl px-6 py-16 mx-auto text-center md:py-24">
+      <section className="mx-auto my-6 max-w-6xl rounded-[2rem] border border-[#F7D8E2] bg-[#FFF5F7] px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
-          <h2 className="text-3xl tracking-wide font-extralight text-neutral-800">Gallery</h2>
+          <h2 className="text-3xl font-medium tracking-wide text-[#8E1B1B]">Gallery</h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="w-full max-w-2xl mx-auto mt-10 aspect-video">
+          <div className="mx-auto mt-10 aspect-video w-full max-w-2xl overflow-hidden rounded-2xl border border-[#F3C7D5] bg-white shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
             <iframe
               src="https://www.youtube-nocookie.com/embed/3sxwcJh4Q5s?controls=1"
               title="SAMPLE VDO MOBILE WEDDING CARD"
@@ -487,7 +491,7 @@ export default function HomePage() {
       </section>
 
       {/* RSVP */}
-      <section className="max-w-6xl px-6 py-16 mx-auto md:py-24">
+      <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
           <img
             src={`${UP}/2025/07/Asset-25-768x154-1.png`}
@@ -498,18 +502,18 @@ export default function HomePage() {
         </Reveal>
         <div className="grid items-center grid-cols-1 gap-12 mt-12 md:grid-cols-2">
           <Reveal className="text-center">
-            <p className="max-w-md mx-auto text-lg italic leading-relaxed">
-              <strong className="font-semibold">
+            <p className="mx-auto max-w-md text-lg italic leading-relaxed text-[#3A1F24]">
+              <strong className="font-medium">
                 “เพื่อให้เราสามารถวางแผนในการดูแลท่าน ซึ่งเป็นแขกคนสำคัญได้อย่างเต็มที่
                 ขอรบกวนทุกท่านทำแบบตอบรับการเข้าร่วมงานให้เราด้วยนะคะ/ครับ”
               </strong>
             </p>
-            <p className="mt-6 italic tracking-widest uppercase">Hope to see you at our wedding</p>
+            <p className="mt-6 italic tracking-widest text-[#7A5A61] uppercase">Hope to see you at our wedding</p>
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSeSm2ywJBxV6uqrbjHFUQbNLG6SuVDqo_hfoJjRI2AD5lCPiw/viewform?usp=sf_link"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-full border border-neutral-800 px-8 py-2.5 text-sm text-neutral-800 transition-colors hover:bg-neutral-800 hover:text-white active:scale-[0.98]"
+              className="mt-8 inline-block rounded-full bg-[#C62828] px-8 py-2.5 text-sm text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
             >
               กดเพื่อลงทะเบียนเข้าร่วมงาน
             </a>
@@ -518,7 +522,7 @@ export default function HomePage() {
             <img
               src={`${UP}/2025/03/bride-groom-pose-photo-2-768x1152.jpg`}
               alt="Cha and Art"
-              className="object-cover w-full max-w-md mx-auto"
+              className="mx-auto w-full max-w-md rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
               loading="lazy"
             />
           </Reveal>
@@ -526,33 +530,33 @@ export default function HomePage() {
       </section>
 
       {/* Guestbook */}
-      <section className="max-w-3xl px-6 py-16 mx-auto text-center md:py-24">
+      <section className="mx-auto my-6 max-w-3xl rounded-[2rem] border border-[#F7D8E2] bg-[#FCE4EC]/70 px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
-          <h2 className="text-3xl font-extralight tracking-[0.25em] text-neutral-800">
+          <h2 className="text-3xl font-medium tracking-[0.25em] text-[#8E1B1B]">
             DIGITAL GUESTBOOK
           </h2>
-          <p className="mt-8 text-lg italic leading-relaxed">
+          <p className="mt-8 text-lg italic leading-relaxed text-[#7A5A61]">
             เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา ร่วมอวยพรให้เราทั้งคู่ได้ที่นี่
           </p>
           <button
             onClick={() => setGbOpen(true)}
-            className="mt-8 inline-flex items-center gap-2 rounded-full border border-neutral-800 px-8 py-2.5 text-sm text-neutral-800 transition-colors hover:bg-neutral-800 hover:text-white active:scale-[0.98]"
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#E91E63] bg-white px-8 py-2.5 text-sm font-medium text-[#C62828] shadow-[0_8px_20px_rgba(198,40,40,0.08)] transition-colors hover:bg-[#FCE4EC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
           >
-            <PenLine className="w-4 h-4" />
+            <PenLine className="h-4 w-4" />
             เขียนคำอวยพรดิจิตอล
           </button>
         </Reveal>
       </section>
 
       {/* Venue */}
-      <section className="max-w-6xl px-6 py-16 mx-auto text-center md:py-24">
+      <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
-          <MapPin className="w-6 h-6 mx-auto text-neutral-800" />
-          <h2 className="mt-3 text-2xl font-light text-neutral-800">The Venue</h2>
-          <p className="mt-1 text-xl font-light text-neutral-700">The Peninsula Bangkok Resort</p>
+          <MapPin className="mx-auto h-6 w-6 text-[#E91E63]" />
+          <h2 className="mt-3 text-2xl font-medium text-[#8E1B1B]">The Venue</h2>
+          <p className="mt-1 text-xl font-light text-[#7A5A61]">The Peninsula Bangkok Resort</p>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="mt-8 overflow-hidden">
+          <div className="mt-8 overflow-hidden rounded-2xl border border-[#F3C7D5] shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
             <iframe
               title="The Peninsula Bangkok map"
               src="https://www.google.com/maps?q=The+Peninsula+Bangkok&output=embed"
@@ -562,15 +566,15 @@ export default function HomePage() {
           </div>
         </Reveal>
         <Reveal delay={0.15}>
-          <p className="flex items-center justify-center gap-2 mt-6 font-light">
-            <MapPin className="w-4 h-4" />
+          <p className="mt-6 flex items-center justify-center gap-2 font-light text-[#7A5A61]">
+            <MapPin className="h-4 w-4 text-[#E91E63]" />
             333 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600
           </p>
           <a
             href="https://www.google.com/maps/dir/?api=1&destination=The+Peninsula+Bangkok"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 block w-full rounded-full border border-neutral-800 py-3 text-sm tracking-[0.3em] text-neutral-800 transition-colors hover:bg-neutral-800 hover:text-white active:scale-[0.99]"
+            className="mt-6 block w-full rounded-full bg-[#C62828] py-3 text-sm tracking-[0.3em] text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.99]"
           >
             DIRECTION
           </a>
@@ -578,11 +582,11 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-6 pt-8 pb-16 text-center">
-        <p className="text-sm font-light text-neutral-600">Powered by</p>
-        <p className="mt-2 text-4xl font-normal tracking-tight text-neutral-800">M</p>
-        <p className="mt-1 text-sm tracking-[0.35em] text-neutral-700">MANITA WEDDING</p>
-        <p className="mt-1 text-sm font-light text-neutral-600">การ์ดแต่งงานมานิตาเวดดิ้ง</p>
+      <footer className="px-6 pb-16 pt-12 text-center">
+        <p className="text-sm font-light text-[#7A5A61]">Powered by</p>
+        <p className="mt-2 text-4xl font-medium tracking-tight text-[#8E1B1B]">M</p>
+        <p className="mt-1 text-sm tracking-[0.35em] text-[#C62828]">MANITA WEDDING</p>
+        <p className="mt-1 text-sm font-light text-[#7A5A61]">การ์ดแต่งงานมานิตาเวดดิ้ง</p>
       </footer>
 
       {/* Floating contact */}
@@ -593,8 +597,8 @@ export default function HomePage() {
         aria-label="ติดต่อเรา"
         className="fixed z-40 flex items-center gap-2 bottom-6 right-6"
       >
-        <span className="px-3 py-1 text-xs bg-white rounded-full shadow-md">ติดต่อเรา</span>
-        <span className="flex items-center justify-center w-12 h-12 text-white transition-transform bg-green-500 rounded-full shadow-lg hover:scale-105">
+        <span className="rounded-full border border-[#F3C7D5] bg-white px-3 py-1 text-xs text-[#7A5A61] shadow-[0_8px_20px_rgba(142,27,27,0.1)]">ติดต่อเรา</span>
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#C62828] to-[#E91E63] text-white shadow-[0_10px_24px_rgba(198,40,40,0.28)] transition-transform hover:scale-105">
           <MessageCircle className="w-6 h-6" />
         </span>
       </a>
