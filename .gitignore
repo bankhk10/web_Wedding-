@@ -3,3 +3,7 @@ node_modules/
 
 # Generated production build
 dist/
+
+# Vite cache and local environment files
+.vite/
+*.local

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { ChevronLeft, ChevronRight, MapPin, Maximize2, MessageCircle, PenLine, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import Reveal from '@/components/Reveal';
+import Reveal from '@/components/common/Reveal';
 import {
   Dialog,
   DialogClose,
