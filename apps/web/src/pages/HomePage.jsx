@@ -74,9 +74,11 @@ function GallerySlider() {
   const pages = Math.ceil(GALLERY.length / perView);
 
   useEffect(() => {
+    if (activeIndex !== null) return undefined;
+
     timer.current = setInterval(() => setPage((p) => (p + 1) % pages), 2500);
     return () => clearInterval(timer.current);
-  }, [pages]);
+  }, [activeIndex, pages]);
 
   useEffect(() => {
     if (page >= pages) setPage(0);
