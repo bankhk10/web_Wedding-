@@ -107,8 +107,8 @@ if ($is_duplicate) {
     guestbook_response(false, 'คำอวยพรนี้ถูกส่งไปแล้ว กรุณารอสักครู่', [], 429);
 }
 
-// $status = 'pending';
-$status = 'approved';
+$status = 'pending';
+// $status = 'approved';
 $statement = $database->prepare(
     'INSERT INTO guestbook (name, message, status) VALUES (?, ?, ?)'
 );
