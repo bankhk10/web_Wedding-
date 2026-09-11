@@ -437,7 +437,7 @@ export default function HomePage() {
           <img
             src={`${UP}/2025/05/wedding-date-transparent.svg`}
             alt="Let's celebrate together on our special day on"
-            className="mx-auto mt-4 w-full max-w-lg"
+            className="w-full max-w-lg mx-auto mt-4"
             loading="lazy"
           />
         </Reveal>
@@ -450,24 +450,24 @@ export default function HomePage() {
           />
         </Reveal> */}
         <Reveal delay={0.2}>
-          <div className="flex items-start justify-center gap-10 mt-6 sm:gap-16">
+          <div className="flex items-start justify-center gap-10 mt-8 sm:gap-16">
             {[
-              [days, "DAYS"],
-              [hours, "HOURS"],
-              [mins, "MIN"],
+              [days, "วัน"],
+              [hours, "ชั่วโมง"],
+              [mins, "นาที"],
             ].map(([v, label]) => (
               <div key={label} className="w-16">
                 <div className="text-4xl font-medium text-[#8E1B1B] sm:text-5xl">
                   {v}
                 </div>
-                <div className="mt-1 text-xs font-semibold tracking-widest text-[#7A5A61]">
+                <div className="mt-1 text-sm font-semibold tracking-widest text-[#7A5A61]">
                   {label}
                 </div>
               </div>
             ))}
           </div>
         </Reveal>
-        <Reveal delay={0.25}>
+        {/* <Reveal delay={0.25}>
           <a
             href={`${UP}/2025/03/R24-053.ics`}
             target="_blank"
@@ -476,7 +476,7 @@ export default function HomePage() {
           >
             ADD TO CALENDAR
           </a>
-        </Reveal>
+        </Reveal> */}
       </section>
 
       {/* Schedule */}
