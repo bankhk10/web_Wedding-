@@ -469,7 +469,7 @@ export default function HomePage() {
             ))}
           </div>
         </Reveal>
-        <Reveal delay={0.25}>
+        {/* <Reveal delay={0.25}>
           <a
             href={`${UP}/2025/03/R24-053.ics`}
             target="_blank"
@@ -478,7 +478,7 @@ export default function HomePage() {
           >
             เพิ่มลงปฏิทินของคุณ
           </a>
-        </Reveal>
+        </Reveal> */}
       </section>
 
       {/* Schedule */}
@@ -641,7 +641,7 @@ export default function HomePage() {
       </footer>
 
       {/* Floating contact */}
-      <a
+      {/* <a
         href="https://www.facebook.com/Bankhk13452/"
         target="_blank"
         rel="noopener noreferrer"
@@ -656,7 +656,7 @@ export default function HomePage() {
         </span>
       </a>
 
-      <GuestbookDialog open={gbOpen} onOpenChange={setGbOpen} />
+      <GuestbookDialog open={gbOpen} onOpenChange={setGbOpen} /> */}
     </main>
   );
 }
