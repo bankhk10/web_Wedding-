@@ -1,0 +1,4 @@
+# Prevent direct access to PHP config files.
+<FilesMatch "^(admin\.php)$">
+    Require all denied
+</FilesMatch>

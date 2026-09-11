@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
 
+require_once __DIR__ . '/../config/admin.php';
 require_once __DIR__ . '/../config/database.php';
 
 function guestbook_admin_response(bool $success, string $message, array $data = [], int $status = 200, bool $include_data = false, ?int $count = null)
@@ -129,9 +130,9 @@ $action = trim((string) ($payload['action'] ?? ''));
 
 if ($action === 'login') {
     $password = trim((string) ($payload['password'] ?? ''));
-    $adminPassword = getenv('GUESTBOOK_ADMIN_PASSWORD');
+    $adminPassword = defined('GUESTBOOK_ADMIN_PASSWORD') ? (string) GUESTBOOK_ADMIN_PASSWORD : '';
 
-    if ($adminPassword === false || $adminPassword === '' || !hash_equals($adminPassword, $password)) {
+    if ($adminPassword === '' || !hash_equals($adminPassword, $password)) {
         $database->close();
         guestbook_admin_response(false, 'รหัสผ่านไม่ถูกต้อง', [], 401);
     }
