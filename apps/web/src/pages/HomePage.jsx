@@ -38,20 +38,19 @@ const GALLERY = [
   "man-woman-pose-photo-with-woman-holding-flowers-scaled.jpg",
 ].map((f) => `${UP}/2025/03/${f}`);
 
-const TARGET = new Date("2026-05-25T06:30:00+07:00").getTime();
+const TARGET = new Date("2026-11-22T00:00:00+07:00").getTime();
 
 function useCountdown() {
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), 1000);
+    const id = setInterval(() => setNow(Date.now()), 60000);
     return () => clearInterval(id);
   }, []);
   const diff = Math.max(0, TARGET - now);
   const days = Math.floor(diff / 86400000);
   const hours = Math.floor((diff % 86400000) / 3600000);
   const mins = Math.floor((diff % 3600000) / 60000);
-  const secs = Math.floor((diff % 60000) / 1000);
-  return { days, hours, mins, secs };
+  return { days, hours, mins };
 }
 
 function GallerySlider() {
@@ -365,7 +364,7 @@ function GuestbookDialog({ open, onOpenChange }) {
 }
 
 export default function HomePage() {
-  const { days, hours, mins, secs } = useCountdown();
+  const { days, hours, mins } = useCountdown();
   const [gbOpen, setGbOpen] = useState(false);
 
   return (
@@ -456,7 +455,6 @@ export default function HomePage() {
               [days, "DAYS"],
               [hours, "HOURS"],
               [mins, "MIN"],
-              [secs, "SEC"],
             ].map(([v, label]) => (
               <div key={label} className="w-16">
                 <div className="text-4xl font-medium text-[#8E1B1B] sm:text-5xl">
