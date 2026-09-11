@@ -435,9 +435,9 @@ export default function HomePage() {
         </Reveal>
         <Reveal delay={0.1}>
           <img
-            src={`${UP}/2025/05/R17-052-20.png`}
+            src={`${UP}/2025/05/wedding-date-transparent.svg`}
             alt="Let's celebrate together on our special day on"
-            className="w-full max-w-md mx-auto mt-8"
+            className="mx-auto mt-4 w-full max-w-lg"
             loading="lazy"
           />
         </Reveal>
@@ -450,7 +450,7 @@ export default function HomePage() {
           />
         </Reveal> */}
         <Reveal delay={0.2}>
-          <div className="flex items-start justify-center gap-10 mt-10 sm:gap-16">
+          <div className="flex items-start justify-center gap-10 mt-6 sm:gap-16">
             {[
               [days, "DAYS"],
               [hours, "HOURS"],
