@@ -30,13 +30,15 @@ try {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $limit = filter_input(INPUT_GET, 'limit', FILTER_VALIDATE_INT);
     $limit = $limit === false || $limit === null ? 6 : max(1, min($limit, 20));
+    $offset = filter_input(INPUT_GET, 'offset', FILTER_VALIDATE_INT);
+    $offset = $offset === false || $offset === null ? 0 : max(0, min($offset, 10000));
 
     $statement = $database->prepare(
         'SELECT id, name, message, created_at
          FROM guestbook
          WHERE status = ?
-         ORDER BY created_at DESC
-         LIMIT ?'
+         ORDER BY created_at DESC, id DESC
+         LIMIT ? OFFSET ?'
     );
 
     if (!$statement) {
@@ -44,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     $status = 'approved';
-    $statement->bind_param('si', $status, $limit);
+    $statement->bind_param('sii', $status, $limit, $offset);
     $statement->execute();
     $statement->bind_result($id, $name, $message, $created_at);
     $messages = [];

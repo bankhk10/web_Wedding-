@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PenLine } from "lucide-react";
+import { Link } from "react-router-dom";
 import Reveal from "@/components/common/Reveal";
 
 const API_URL = "/api/guestbook.php";
@@ -13,7 +14,7 @@ function GuestbookMessages() {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetch(`${API_URL}?limit=6`, { signal: controller.signal })
+    fetch(`${API_URL}?limit=3`, { signal: controller.signal })
       .then(async (response) => {
         const payload = await response.json();
         if (!response.ok || !payload.success) throw new Error("load failed");
@@ -48,18 +49,26 @@ function GuestbookMessages() {
   }
 
   return (
-    <div className="mt-10 grid gap-4 text-left sm:grid-cols-2">
-      {messages.map((message) => (
-        <article
-          key={message.id}
-          className="rounded-2xl border border-[#F3C7D5] bg-white/70 p-5 shadow-[0_8px_20px_rgba(142,27,27,0.05)]"
-        >
-          <h3 className="font-medium text-[#8E1B1B]">คุณ{message.name}</h3>
-          <p className="mt-3 whitespace-pre-wrap break-words font-light leading-relaxed text-[#3A1F24]">
-            {message.message}
-          </p>
-        </article>
-      ))}
+    <div className="mt-10">
+      <div className="grid gap-4 text-left sm:grid-cols-2">
+        {messages.map((message) => (
+          <article
+            key={message.id}
+            className="rounded-2xl border border-[#F3C7D5] bg-white/70 p-5 shadow-[0_8px_20px_rgba(142,27,27,0.05)]"
+          >
+            <h3 className="font-medium text-[#8E1B1B]">คุณ{message.name}</h3>
+            <p className="mt-3 whitespace-pre-wrap break-words font-light leading-relaxed text-[#3A1F24]">
+              {message.message}
+            </p>
+          </article>
+        ))}
+      </div>
+      <Link
+        to="/guestbook"
+        className="mt-8 inline-flex items-center justify-center rounded-full border border-[#E91E63] bg-white px-6 py-2.5 text-sm font-medium text-[#C62828] shadow-[0_8px_20px_rgba(198,40,40,0.08)] transition-colors hover:bg-[#FCE4EC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2"
+      >
+        💌 ดูคำอวยพรทั้งหมด
+      </Link>
     </div>
   );
 }
@@ -128,7 +137,7 @@ function GuestbookForm() {
         disabled={submitState === "loading"}
         className="flex w-full items-center justify-center gap-2 rounded-full bg-[#C62828] py-2.5 tracking-[0.12em] text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-wait disabled:opacity-70"
       >
-        <PenLine className="h-4 w-4" aria-hidden="true" />
+        <PenLine className="w-4 h-4" aria-hidden="true" />
         {submitState === "loading" ? "กำลังส่ง..." : "ส่งคำอวยพร"}
       </button>
       {submitState === "success" && (
