@@ -481,7 +481,7 @@ export default function HomePage() {
               Hope to see you at our wedding
             </p>
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeSm2ywJBxV6uqrbjHFUQbNLG6SuVDqo_hfoJjRI2AD5lCPiw/viewform?usp=sf_link"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSc0Z5JPYX1gqu8D2b83CHJZ2JfkQaFa9ADHyC-sy2DU14OP7A/viewform?usp=dialog"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-8 inline-block rounded-full bg-[#C62828] px-8 py-2.5 text-sm text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
