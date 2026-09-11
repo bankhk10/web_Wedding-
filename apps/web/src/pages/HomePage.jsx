@@ -457,10 +457,10 @@ export default function HomePage() {
               [mins, "นาที"],
             ].map(([v, label]) => (
               <div key={label} className="w-16">
-                <div className="text-4xl font-medium text-[#8E1B1B] sm:text-5xl">
+                <div className="text-4xl font-normal text-[#8E1B1B] sm:text-5xl">
                   {v}
                 </div>
-                <div className="mt-1 text-sm font-semibold tracking-widest text-[#7A5A61]">
+                <div className="mt-1 text-sm font-medium tracking-widest text-[#7A5A61]">
                   {label}
                 </div>
               </div>
