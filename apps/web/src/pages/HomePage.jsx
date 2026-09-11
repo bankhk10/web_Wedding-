@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dialog";
 
 // Static assets served from apps/web/public/images/cha-art.
-const UP = "/images/cha-art";
+const UP = "/images/b-p";
 
 const GALLERY = [
   "wedding-couple-indoors-is-hugging-each-other-beautiful-model-woman-white-dress-man-suit-be-1-scaled.jpg",
@@ -371,7 +371,7 @@ export default function HomePage() {
   return (
     <main className="bg-[#FFF9FA] font-light text-[#3A1F24]">
       <Helmet>
-        <title>Cha &amp; Art | การ์ดแต่งงานออนไลน์</title>
+        <title>Opal &amp; Bank</title>
         <meta
           name="description"
           content="การ์ดแต่งงานออนไลน์ Cha and Art — ขอเรียนเชิญร่วมงานมงคลสมรส วันที่ 25 พฤษภาคม 2569 ณ โรงแรมเดอะ เพนนินซูลา กรุงเทพฯ"
