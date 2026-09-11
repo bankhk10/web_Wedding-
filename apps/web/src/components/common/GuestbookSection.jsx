@@ -14,7 +14,7 @@ function GuestbookMessages() {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetch(`${API_URL}?limit=3`, { signal: controller.signal })
+    fetch(`${API_URL}?limit=4`, { signal: controller.signal })
       .then(async (response) => {
         const payload = await response.json();
         if (!response.ok || !payload.success) throw new Error("load failed");
@@ -32,18 +32,28 @@ function GuestbookMessages() {
   }, []);
 
   if (loadState === "loading") {
-    return <p className="mt-8 text-center font-light text-[#7A5A61]">กำลังโหลดคำอวยพร...</p>;
+    return (
+      <p className="mt-8 text-center font-light text-[#7A5A61]">
+        กำลังโหลดคำอวยพร...
+      </p>
+    );
   }
 
   if (loadState === "error") {
-    return <p className="mt-8 text-center font-light text-[#7A5A61]">ยังไม่สามารถโหลดคำอวยพรได้</p>;
+    return (
+      <p className="mt-8 text-center font-light text-[#7A5A61]">
+        ยังไม่สามารถโหลดคำอวยพรได้
+      </p>
+    );
   }
 
   if (messages.length === 0) {
     return (
       <div className="mt-8 text-center font-light text-[#7A5A61]">
         <p>ยังไม่มีคำอวยพรในขณะนี้</p>
-        <p className="mt-1">มาเป็นคนแรกที่ส่งคำอวยพรให้ Opal &amp; Bank กันนะ 💕</p>
+        <p className="mt-1">
+          มาเป็นคนแรกที่ส่งคำอวยพรให้ Opal &amp; Bank กันนะ 💕
+        </p>
       </div>
     );
   }
@@ -56,7 +66,7 @@ function GuestbookMessages() {
             key={message.id}
             className="rounded-2xl border border-[#F3C7D5] bg-white/70 p-5 shadow-[0_8px_20px_rgba(142,27,27,0.05)]"
           >
-            <h3 className="font-medium text-[#8E1B1B]">คุณ{message.name}</h3>
+            <h3 className="font-medium text-[#8E1B1B]">คุณ: {message.name}</h3>
             <p className="mt-3 whitespace-pre-wrap break-words font-light leading-relaxed text-[#3A1F24]">
               {message.message}
             </p>
@@ -105,7 +115,10 @@ function GuestbookForm() {
   return (
     <form className="mt-8 space-y-4 text-left" onSubmit={handleSubmit}>
       <div className="space-y-2">
-        <label htmlFor="guestbook-name" className="text-sm font-medium text-[#3A1F24]">
+        <label
+          htmlFor="guestbook-name"
+          className="text-sm font-medium text-[#3A1F24]"
+        >
           ชื่อของคุณ
         </label>
         <input
@@ -118,7 +131,10 @@ function GuestbookForm() {
         />
       </div>
       <div className="space-y-2">
-        <label htmlFor="guestbook-message" className="text-sm font-medium text-[#3A1F24]">
+        <label
+          htmlFor="guestbook-message"
+          className="text-sm font-medium text-[#3A1F24]"
+        >
           คำอวยพร
         </label>
         <textarea
@@ -141,14 +157,20 @@ function GuestbookForm() {
         {submitState === "loading" ? "กำลังส่ง..." : "ส่งคำอวยพร"}
       </button>
       {submitState === "success" && (
-        <p className="text-center text-sm font-light text-[#8E1B1B]" role="status">
+        <p
+          className="text-center text-sm font-light text-[#8E1B1B]"
+          role="status"
+        >
           💌 ส่งคำอวยพรเรียบร้อยแล้ว
           <br />
-          ขอบคุณสำหรับคำอวยพรดี ๆ คำอวยพรจะปรากฏบนเว็บไซต์หลังจากตรวจสอบแล้ว
+          ขอบคุณสำหรับคำอวยพรดีๆ คำอวยพรจะปรากฏบนเว็บไซต์หลังจากตรวจสอบแล้ว
         </p>
       )}
       {submitState === "error" && (
-        <p className="text-center text-sm font-light text-[#8E1B1B]" role="alert">
+        <p
+          className="text-center text-sm font-light text-[#8E1B1B]"
+          role="alert"
+        >
           ไม่สามารถส่งคำอวยพรได้ กรุณาลองใหม่อีกครั้ง
         </p>
       )}
