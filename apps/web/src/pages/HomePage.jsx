@@ -450,7 +450,7 @@ export default function HomePage() {
           />
         </Reveal> */}
         <Reveal delay={0.2}>
-          <div className="flex items-start justify-center gap-10 mt-8 sm:gap-16">
+          <div className="flex items-start justify-center gap-10 mt-10 sm:gap-16">
             {[
               [days, "วัน"],
               [hours, "ชั่วโมง"],
