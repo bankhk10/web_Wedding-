@@ -1,18 +1,19 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//ical.marudot.com//iCal Event Maker
+PRODID:-//Opal and Bank//Wedding Calendar//TH
 CALSCALE:GREGORIAN
 BEGIN:VEVENT
-DTSTAMP:20250320T102839Z
-UID:1742466512148-81204@ical.marudot.com
-DTSTART;VALUE=DATE:20260525
-DTEND;VALUE=DATE:20260526
-SUMMARY:The Wedding of Cha and Art
-DESCRIPTION:You are invited to our wedding celebration on Monday\, 25 May 2026\, 6.30 A.M. at The Paninsula Bangkok Resort
+DTSTAMP:20260911T000000Z
+UID:opal-bank-wedding-20261122@wedding
+DTSTART;TZID=Asia/Bangkok:20261122T170000
+DTEND;TZID=Asia/Bangkok:20261122T220000
+SUMMARY:งานมงคลสมรส Opal & Bank
+DESCRIPTION:ขอเชิญร่วมงานมงคลสมรสของ Opal และ Bank ในวันที่ 22 พฤศจิกายน 2569 เวลา 17:00 - 22:00 น.
+LOCATION:มิตรภาพ แคทเทอริ่ง จ.ศรีสะเกษ
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:The Wedding of Cha and Art
-TRIGGER:-PT0M
+DESCRIPTION:งานมงคลสมรส Opal & Bank
+TRIGGER:-P1D
 END:VALARM
 END:VEVENT
 END:VCALENDAR

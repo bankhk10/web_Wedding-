@@ -467,16 +467,16 @@ export default function HomePage() {
             ))}
           </div>
         </Reveal>
-        {/* <Reveal delay={0.25}>
+        <Reveal delay={0.25}>
           <a
             href={`${UP}/2025/03/R24-053.ics`}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-10 inline-block rounded-full bg-[#C62828] px-8 py-2.5 text-sm tracking-[0.2em] text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
           >
-            ADD TO CALENDAR
+            เพิ่มลงปฏิทินของคุณ
           </a>
-        </Reveal> */}
+        </Reveal>
       </section>
 
       {/* Schedule */}
