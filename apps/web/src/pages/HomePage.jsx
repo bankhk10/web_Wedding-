@@ -1,8 +1,16 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { ChevronLeft, ChevronRight, MapPin, Maximize2, MessageCircle, PenLine, X } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
-import Reveal from '@/components/common/Reveal';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet";
+import {
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+  Maximize2,
+  MessageCircle,
+  PenLine,
+  X,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import Reveal from "@/components/common/Reveal";
 import {
   Dialog,
   DialogClose,
@@ -10,27 +18,27 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 
 // Static assets served from apps/web/public/images/cha-art.
-const UP = '/images/cha-art';
+const UP = "/images/cha-art";
 
 const GALLERY = [
-  'wedding-couple-indoors-is-hugging-each-other-beautiful-model-woman-white-dress-man-suit-be-1-scaled.jpg',
-  'wedding-couple-groom-bride-posing-white-studio-2-scaled.jpg',
-  'wedding-couple-groom-bride-posing-white-studio-scaled.jpg',
-  'wedding-couple-groom-bride-posing-white-studio-1-scaled.jpg',
-  'wedding-couple-love-beautiful-bride-elegant-groom-black-background-stylish-newlywed-coup-scaled.jpg',
-  'wedding-couple-indoors-is-hugging-each-other-beautiful-model-woman-white-dress-man-suit-be-scaled.jpg',
-  'young-couple-wedding-day-scaled.jpg',
-  'young-couple-wedding-day-3-scaled.jpg',
-  'young-couple-wedding-day-5-scaled.jpg',
-  'woman-white-dress-is-kneeling-floor-with-man-wearing-tutu-scaled.jpg',
-  'man-woman-pose-front-gray-background-1-scaled.jpg',
-  'man-woman-pose-photo-with-woman-holding-flowers-scaled.jpg',
+  "wedding-couple-indoors-is-hugging-each-other-beautiful-model-woman-white-dress-man-suit-be-1-scaled.jpg",
+  "wedding-couple-groom-bride-posing-white-studio-2-scaled.jpg",
+  "wedding-couple-groom-bride-posing-white-studio-scaled.jpg",
+  "wedding-couple-groom-bride-posing-white-studio-1-scaled.jpg",
+  "wedding-couple-love-beautiful-bride-elegant-groom-black-background-stylish-newlywed-coup-scaled.jpg",
+  "wedding-couple-indoors-is-hugging-each-other-beautiful-model-woman-white-dress-man-suit-be-scaled.jpg",
+  "young-couple-wedding-day-scaled.jpg",
+  "young-couple-wedding-day-3-scaled.jpg",
+  "young-couple-wedding-day-5-scaled.jpg",
+  "woman-white-dress-is-kneeling-floor-with-man-wearing-tutu-scaled.jpg",
+  "man-woman-pose-front-gray-background-1-scaled.jpg",
+  "man-woman-pose-photo-with-woman-holding-flowers-scaled.jpg",
 ].map((f) => `${UP}/2025/03/${f}`);
 
-const TARGET = new Date('2026-05-25T06:30:00+07:00').getTime();
+const TARGET = new Date("2026-05-25T06:30:00+07:00").getTime();
 
 function useCountdown() {
   const [now, setNow] = useState(Date.now());
@@ -56,10 +64,12 @@ function GallerySlider() {
 
   useEffect(() => {
     const update = () =>
-      setPerView(window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+      setPerView(
+        window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3,
+      );
     update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
 
   const pages = Math.ceil(GALLERY.length / perView);
@@ -79,33 +89,37 @@ function GallerySlider() {
   }, []);
 
   const showPrevious = useCallback(() => {
-    setActiveIndex((index) => (index === null ? 0 : (index - 1 + GALLERY.length) % GALLERY.length));
+    setActiveIndex((index) =>
+      index === null ? 0 : (index - 1 + GALLERY.length) % GALLERY.length,
+    );
   }, []);
 
   const showNext = useCallback(() => {
-    setActiveIndex((index) => (index === null ? 0 : (index + 1) % GALLERY.length));
+    setActiveIndex((index) =>
+      index === null ? 0 : (index + 1) % GALLERY.length,
+    );
   }, []);
 
   useEffect(() => {
     if (activeIndex === null) return undefined;
 
     const handleKeyDown = (event) => {
-      if (event.key === 'ArrowLeft') {
+      if (event.key === "ArrowLeft") {
         event.preventDefault();
         showPrevious();
       }
-      if (event.key === 'ArrowRight') {
+      if (event.key === "ArrowRight") {
         event.preventDefault();
         showNext();
       }
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         event.preventDefault();
         closeLightbox();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [activeIndex, closeLightbox, showNext, showPrevious]);
 
   const handleOpenChange = (open) => {
@@ -131,33 +145,39 @@ function GallerySlider() {
         >
           {Array.from({ length: pages }).map((_, pi) => (
             <div key={pi} className="flex w-full gap-1 px-1 shrink-0">
-              {GALLERY.slice(pi * perView, pi * perView + perView).map((src, imageOffset) => {
-                const imageIndex = pi * perView + imageOffset;
-                return (
-                  <div key={src} className="w-full" style={{ maxWidth: `${100 / perView}%` }}>
-                    <button
-                      type="button"
-                      onClick={(event) => {
-                        triggerRef.current = event.currentTarget;
-                        setActiveIndex(imageIndex);
-                      }}
-                      aria-label={`Open pre-wedding photo ${imageIndex + 1} of ${GALLERY.length}`}
-                      className="group relative block w-full overflow-hidden rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C62828] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF5F7]"
+              {GALLERY.slice(pi * perView, pi * perView + perView).map(
+                (src, imageOffset) => {
+                  const imageIndex = pi * perView + imageOffset;
+                  return (
+                    <div
+                      key={src}
+                      className="w-full"
+                      style={{ maxWidth: `${100 / perView}%` }}
                     >
-                      <img
-                        src={src}
-                        alt={`Cha and Art pre-wedding photo ${imageIndex + 1}`}
-                        loading="lazy"
-                        className="aspect-[2/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105"
-                      />
-                      <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#8E1B1B]/45 via-[#C62828]/10 to-[#E91E63]/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
-                      <span className="pointer-events-none absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-[#C62828] opacity-0 shadow-[0_8px_24px_rgba(142,27,27,0.18)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 scale-90">
-                        <Maximize2 className="h-4 w-4" aria-hidden="true" />
-                      </span>
-                    </button>
-                  </div>
-                );
-              })}
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          triggerRef.current = event.currentTarget;
+                          setActiveIndex(imageIndex);
+                        }}
+                        aria-label={`Open pre-wedding photo ${imageIndex + 1} of ${GALLERY.length}`}
+                        className="group relative block w-full overflow-hidden rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C62828] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF5F7]"
+                      >
+                        <img
+                          src={src}
+                          alt={`Cha and Art pre-wedding photo ${imageIndex + 1}`}
+                          loading="lazy"
+                          className="aspect-[2/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105"
+                        />
+                        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#8E1B1B]/45 via-[#C62828]/10 to-[#E91E63]/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                        <span className="pointer-events-none absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-[#C62828] opacity-0 shadow-[0_8px_24px_rgba(142,27,27,0.18)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 scale-90">
+                          <Maximize2 className="w-4 h-4" aria-hidden="true" />
+                        </span>
+                      </button>
+                    </div>
+                  );
+                },
+              )}
             </div>
           ))}
         </div>
@@ -169,19 +189,20 @@ function GallerySlider() {
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => setPage(i)}
             className={`h-2 w-2 rounded-full transition-colors ${
-              i === page ? 'bg-[#C62828]' : 'bg-[#F3C7D5] hover:bg-[#E91E63]/60'
+              i === page ? "bg-[#C62828]" : "bg-[#F3C7D5] hover:bg-[#E91E63]/60"
             }`}
           />
         ))}
       </div>
 
       <Dialog open={activeIndex !== null} onOpenChange={handleOpenChange}>
-        <DialogContent
-          className="!left-0 !top-0 !flex !h-[100dvh] !w-full !max-w-none !translate-x-0 !translate-y-0 !flex-col !gap-0 border-0 bg-transparent p-0 shadow-none sm:rounded-none [&>button:last-child]:hidden"
-        >
-          <DialogTitle className="sr-only">Pre-wedding photo viewer</DialogTitle>
+        <DialogContent className="!left-0 !top-0 !flex !h-[100dvh] !w-full !max-w-none !translate-x-0 !translate-y-0 !flex-col !gap-0 border-0 bg-transparent p-0 shadow-none sm:rounded-none [&>button:last-child]:hidden">
+          <DialogTitle className="sr-only">
+            Pre-wedding photo viewer
+          </DialogTitle>
           <DialogDescription className="sr-only">
-            Use the previous and next controls, arrow keys, or swipe to browse the gallery.
+            Use the previous and next controls, arrow keys, or swipe to browse
+            the gallery.
           </DialogDescription>
 
           <div
@@ -225,7 +246,7 @@ function GallerySlider() {
                 initial={{ opacity: 0, scale: 0.985 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.985 }}
-                transition={{ duration: 0.22, ease: 'easeOut' }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
                 className="object-contain max-w-full max-h-full shadow-2xl select-none"
                 draggable="false"
               />
@@ -251,11 +272,11 @@ function GallerySlider() {
                 type="button"
                 onClick={() => setActiveIndex(index)}
                 aria-label={`View photo ${index + 1}`}
-                aria-current={index === activeIndex ? 'true' : undefined}
+                aria-current={index === activeIndex ? "true" : undefined}
                 className={`h-16 w-12 shrink-0 overflow-hidden rounded-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:h-20 sm:w-14 ${
                   index === activeIndex
-                    ? 'ring-2 ring-[#E91E63] ring-offset-2 ring-offset-black opacity-100'
-                    : 'opacity-60 hover:opacity-100'
+                    ? "ring-2 ring-[#E91E63] ring-offset-2 ring-offset-black opacity-100"
+                    : "opacity-60 hover:opacity-100"
                 }`}
               >
                 <img
@@ -274,8 +295,8 @@ function GallerySlider() {
 
 function GuestbookDialog({ open, onOpenChange }) {
   const [sent, setSent] = useState(false);
-  const [name, setName] = useState('');
-  const [wish, setWish] = useState('');
+  const [name, setName] = useState("");
+  const [wish, setWish] = useState("");
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="rounded-3xl border border-[#F3C7D5] bg-white p-6 shadow-[0_24px_80px_rgba(142,27,27,0.16)] sm:max-w-md">
@@ -300,7 +321,12 @@ function GuestbookDialog({ open, onOpenChange }) {
             }}
           >
             <div className="space-y-2">
-              <label htmlFor="gb-name" className="text-sm font-medium text-[#3A1F24]">ชื่อของคุณ</label>
+              <label
+                htmlFor="gb-name"
+                className="text-sm font-medium text-[#3A1F24]"
+              >
+                ชื่อของคุณ
+              </label>
               <input
                 id="gb-name"
                 required
@@ -310,7 +336,12 @@ function GuestbookDialog({ open, onOpenChange }) {
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="gb-wish" className="text-sm font-medium text-[#3A1F24]">คำอวยพร</label>
+              <label
+                htmlFor="gb-wish"
+                className="text-sm font-medium text-[#3A1F24]"
+              >
+                คำอวยพร
+              </label>
               <textarea
                 id="gb-wish"
                 required
@@ -396,7 +427,12 @@ export default function HomePage() {
       {/* Countdown */}
       <section className="mx-auto my-6 max-w-4xl rounded-[2rem] border border-[#F7D8E2] bg-[#FCE4EC]/70 px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
-          <img src={`${UP}/2025/03/R24-053_01.png`} alt="Cha Art" className="mx-auto w-28 md:w-36" loading="lazy" />
+          <img
+            src={`${UP}/2025/03/R24-053_01.png`}
+            alt="Cha Art"
+            className="mx-auto w-28 md:w-36"
+            loading="lazy"
+          />
         </Reveal>
         <Reveal delay={0.1}>
           <img
@@ -417,13 +453,15 @@ export default function HomePage() {
         <Reveal delay={0.2}>
           <div className="flex items-start justify-center gap-10 mt-10 sm:gap-16">
             {[
-              [days, 'DAYS'],
-              [hours, 'HOURS'],
-              [mins, 'MIN'],
-              [secs, 'SEC'],
+              [days, "DAYS"],
+              [hours, "HOURS"],
+              [mins, "MIN"],
+              [secs, "SEC"],
             ].map(([v, label]) => (
               <div key={label} className="w-16">
-                <div className="text-4xl font-medium text-[#8E1B1B] sm:text-5xl">{v}</div>
+                <div className="text-4xl font-medium text-[#8E1B1B] sm:text-5xl">
+                  {v}
+                </div>
                 <div className="mt-1 text-xs font-semibold tracking-widest text-[#7A5A61]">
                   {label}
                 </div>
@@ -446,7 +484,12 @@ export default function HomePage() {
       {/* Schedule */}
       <section className="mx-auto my-6 max-w-5xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
-          <img src={`${UP}/2024/12/Asset-21.png`} alt="Schedule" className="w-full max-w-xl mx-auto" loading="lazy" />
+          <img
+            src={`${UP}/2024/12/Asset-21.png`}
+            alt="Schedule"
+            className="w-full max-w-xl mx-auto"
+            loading="lazy"
+          />
         </Reveal>
         <Reveal delay={0.1}>
           <img
@@ -469,7 +512,9 @@ export default function HomePage() {
       {/* Gallery */}
       <section className="mx-auto my-6 max-w-6xl rounded-[2rem] border border-[#F7D8E2] bg-[#FFF5F7] px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
-          <h2 className="text-3xl font-medium tracking-wide text-[#8E1B1B]">Gallery</h2>
+          <h2 className="text-3xl font-medium tracking-wide text-[#8E1B1B]">
+            Gallery
+          </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="mx-auto mt-10 aspect-video w-full max-w-2xl overflow-hidden rounded-2xl border border-[#F3C7D5] bg-white shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
@@ -504,11 +549,14 @@ export default function HomePage() {
           <Reveal className="text-center">
             <p className="mx-auto max-w-md text-lg italic leading-relaxed text-[#3A1F24]">
               <strong className="font-medium">
-                “เพื่อให้เราสามารถวางแผนในการดูแลท่าน ซึ่งเป็นแขกคนสำคัญได้อย่างเต็มที่
+                “เพื่อให้เราสามารถวางแผนในการดูแลท่าน
+                ซึ่งเป็นแขกคนสำคัญได้อย่างเต็มที่
                 ขอรบกวนทุกท่านทำแบบตอบรับการเข้าร่วมงานให้เราด้วยนะคะ/ครับ”
               </strong>
             </p>
-            <p className="mt-6 italic tracking-widest text-[#7A5A61] uppercase">Hope to see you at our wedding</p>
+            <p className="mt-6 italic tracking-widest text-[#7A5A61] uppercase">
+              Hope to see you at our wedding
+            </p>
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSeSm2ywJBxV6uqrbjHFUQbNLG6SuVDqo_hfoJjRI2AD5lCPiw/viewform?usp=sf_link"
               target="_blank"
@@ -536,13 +584,14 @@ export default function HomePage() {
             DIGITAL GUESTBOOK
           </h2>
           <p className="mt-8 text-lg italic leading-relaxed text-[#7A5A61]">
-            เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา ร่วมอวยพรให้เราทั้งคู่ได้ที่นี่
+            เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา
+            ร่วมอวยพรให้เราทั้งคู่ได้ที่นี่
           </p>
           <button
             onClick={() => setGbOpen(true)}
             className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#E91E63] bg-white px-8 py-2.5 text-sm font-medium text-[#C62828] shadow-[0_8px_20px_rgba(198,40,40,0.08)] transition-colors hover:bg-[#FCE4EC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
           >
-            <PenLine className="h-4 w-4" />
+            <PenLine className="w-4 h-4" />
             เขียนคำอวยพรดิจิตอล
           </button>
         </Reveal>
@@ -552,8 +601,12 @@ export default function HomePage() {
       <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
         <Reveal>
           <MapPin className="mx-auto h-6 w-6 text-[#E91E63]" />
-          <h2 className="mt-3 text-2xl font-medium text-[#8E1B1B]">The Venue</h2>
-          <p className="mt-1 text-xl font-light text-[#7A5A61]">The Peninsula Bangkok Resort</p>
+          <h2 className="mt-3 text-2xl font-medium text-[#8E1B1B]">
+            The Venue
+          </h2>
+          <p className="mt-1 text-xl font-light text-[#7A5A61]">
+            The Peninsula Bangkok Resort
+          </p>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="mt-8 overflow-hidden rounded-2xl border border-[#F3C7D5] shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
@@ -582,22 +635,27 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-6 pb-16 pt-12 text-center">
-        <p className="text-sm font-light text-[#7A5A61]">Powered by</p>
-        <p className="mt-2 text-4xl font-medium tracking-tight text-[#8E1B1B]">M</p>
-        <p className="mt-1 text-sm tracking-[0.35em] text-[#C62828]">MANITA WEDDING</p>
-        <p className="mt-1 text-sm font-light text-[#7A5A61]">การ์ดแต่งงานมานิตาเวดดิ้ง</p>
+      <footer className="px-6 pt-12 pb-16 text-center">
+        <p className="text-sm font-light text-[#7A5A61]">Wedding Celebration</p>
+        <p className="mt-2 text-4xl font-medium tracking-tight text-[#8E1B1B]">
+          Opal & Bank
+        </p>
+        <p className="mt-1 text-sm font-light text-[#7A5A61]">
+          กราบขออภัยหากมิได้มาเรียนเชิญด้วยตนเอง
+        </p>
       </footer>
 
       {/* Floating contact */}
       <a
-        href="https://e-card.manitawedding.com/"
+        href="https://www.facebook.com/Bankhk13452/"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="ติดต่อเรา"
+        aria-label="สอบถาม"
         className="fixed z-40 flex items-center gap-2 bottom-6 right-6"
       >
-        <span className="rounded-full border border-[#F3C7D5] bg-white px-3 py-1 text-xs text-[#7A5A61] shadow-[0_8px_20px_rgba(142,27,27,0.1)]">ติดต่อเรา</span>
+        <span className="rounded-full border border-[#F3C7D5] bg-white px-3 py-1 text-xs text-[#7A5A61] shadow-[0_8px_20px_rgba(142,27,27,0.1)]">
+          สอบถาม
+        </span>
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#C62828] to-[#E91E63] text-white shadow-[0_10px_24px_rgba(198,40,40,0.28)] transition-transform hover:scale-105">
           <MessageCircle className="w-6 h-6" />
         </span>
