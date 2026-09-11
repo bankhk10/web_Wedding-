@@ -165,7 +165,7 @@ function GallerySlider() {
                       >
                         <img
                           src={src}
-                          alt={`Cha and Art pre-wedding photo ${imageIndex + 1}`}
+                          alt={`Opal and Bank pre-wedding photo ${imageIndex + 1}`}
                           loading="lazy"
                           className="aspect-[2/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105"
                         />
@@ -242,7 +242,7 @@ function GallerySlider() {
               <motion.img
                 key={activeIndex}
                 src={GALLERY[activeIndex]}
-                alt={`Cha and Art pre-wedding photo ${activeIndex + 1}`}
+                alt={`Opal and Bank pre-wedding photo ${activeIndex + 1}`}
                 initial={{ opacity: 0, scale: 0.985 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.985 }}
@@ -374,7 +374,7 @@ export default function HomePage() {
         <title>Opal &amp; Bank</title>
         <meta
           name="description"
-          content="การ์ดแต่งงานออนไลน์ Cha and Art — ขอเรียนเชิญร่วมงานมงคลสมรส วันที่ 25 พฤษภาคม 2569 ณ โรงแรมเดอะ เพนนินซูลา กรุงเทพฯ"
+          content="Opal and Bank — ขอเรียนเชิญร่วมงานมงคลสมรส วันที่ 22 พฤศจิกายน 2569 ณ ภัตตาคาร มิตรภาพ แคทเทอริ่ง จ.ศรีสะเกษ"
         />
       </Helmet>
 
@@ -382,14 +382,14 @@ export default function HomePage() {
       <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[#3A1F24]">
         <img
           src={`${UP}/2025/03/R24-053_01.jpg`}
-          alt="การ์ดแต่งงานออนไลน์ Cha and Art"
+          alt="การ์ดแต่งงานออนไลน์ Opal and Bank"
           className="absolute inset-0 object-cover w-full h-full"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#3A1F24]/10 via-transparent to-[#8E1B1B]/45" />
         <Reveal y={30}>
           <img
             src={`${UP}/2025/03/R24-053_01.png`}
-            alt="Cha Art"
+            alt="Opal Bank"
             className="relative w-40 drop-shadow-[0_10px_24px_rgba(58,31,36,0.3)] sm:w-56 md:w-64"
           />
         </Reveal>
@@ -429,7 +429,7 @@ export default function HomePage() {
         <Reveal>
           <img
             src={`${UP}/2025/03/R24-053_01.png`}
-            alt="Cha Art"
+            alt="Opal Bank"
             className="mx-auto w-28 md:w-36"
             loading="lazy"
           />
@@ -442,14 +442,14 @@ export default function HomePage() {
             loading="lazy"
           />
         </Reveal>
-        <Reveal delay={0.15}>
+        {/* <Reveal delay={0.15}>
           <img
             src={`${UP}/2025/03/R24-053_06.png`}
             alt="25 May 26"
             className="w-full max-w-md mx-auto"
             loading="lazy"
           />
-        </Reveal>
+        </Reveal> */}
         <Reveal delay={0.2}>
           <div className="flex items-start justify-center gap-10 mt-10 sm:gap-16">
             {[
@@ -468,44 +468,6 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </Reveal>
-        <Reveal delay={0.25}>
-          <a
-            href={`${UP}/2025/03/R24-053.ics`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-10 inline-block rounded-full bg-[#C62828] px-8 py-2.5 text-sm tracking-[0.2em] text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
-          >
-            ADD TO CALENDAR
-          </a>
-        </Reveal>
-      </section>
-
-      {/* Schedule */}
-      <section className="mx-auto my-6 max-w-5xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
-        <Reveal>
-          <img
-            src={`${UP}/2024/12/Asset-21.png`}
-            alt="Schedule"
-            className="w-full max-w-xl mx-auto"
-            loading="lazy"
-          />
-        </Reveal>
-        <Reveal delay={0.1}>
-          <img
-            src={`${UP}/2025/03/R24-053-03-768x723.jpg`}
-            alt="Cha and Art"
-            className="mx-auto mt-10 w-full max-w-3xl rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
-            loading="lazy"
-          />
-        </Reveal>
-        <Reveal delay={0.15}>
-          <img
-            src={`${UP}/2025/03/R24-053.png`}
-            alt="กำหนดการงานแต่งงาน"
-            className="w-full max-w-2xl mx-auto mt-10"
-            loading="lazy"
-          />
         </Reveal>
       </section>
 
@@ -537,14 +499,6 @@ export default function HomePage() {
 
       {/* RSVP */}
       <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
-        <Reveal>
-          <img
-            src={`${UP}/2025/07/Asset-25-768x154-1.png`}
-            alt="R.S.V.P"
-            className="w-full max-w-lg mx-auto"
-            loading="lazy"
-          />
-        </Reveal>
         <div className="grid items-center grid-cols-1 gap-12 mt-12 md:grid-cols-2">
           <Reveal className="text-center">
             <p className="mx-auto max-w-md text-lg italic leading-relaxed text-[#3A1F24]">
@@ -569,7 +523,7 @@ export default function HomePage() {
           <Reveal delay={0.15}>
             <img
               src={`${UP}/2025/03/bride-groom-pose-photo-2-768x1152.jpg`}
-              alt="Cha and Art"
+              alt="Opal and Bank"
               className="mx-auto w-full max-w-md rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
               loading="lazy"
             />
@@ -602,17 +556,17 @@ export default function HomePage() {
         <Reveal>
           <MapPin className="mx-auto h-6 w-6 text-[#E91E63]" />
           <h2 className="mt-3 text-2xl font-medium text-[#8E1B1B]">
-            The Venue
+            สถานที่จัดงาน
           </h2>
           <p className="mt-1 text-xl font-light text-[#7A5A61]">
-            The Peninsula Bangkok Resort
+            มิตรภาพ เเคทเทอริ่ง จ.ศรีสะเกษ
           </p>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="mt-8 overflow-hidden rounded-2xl border border-[#F3C7D5] shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
             <iframe
-              title="The Peninsula Bangkok map"
-              src="https://www.google.com/maps?q=The+Peninsula+Bangkok&output=embed"
+              title="มิตรภาพ เเคทเทอริ่ง จ.ศรีสะเกษ"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.9100080386024!2d104.32314777148537!3d15.117936547973716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3116e2da3576d0c7%3A0xe2605fdd5a6c0a5f!2z4Lig4Lix4LiV4LiV4Liy4LiE4Liy4LijIOC4oeC4tOC4leC4o-C4oOC4suC4ng!5e0!3m2!1sth!2sth!4v1789097371885!5m2!1sth!2sth"
               className="h-[380px] w-full border-0"
               loading="lazy"
             />
@@ -621,15 +575,15 @@ export default function HomePage() {
         <Reveal delay={0.15}>
           <p className="mt-6 flex items-center justify-center gap-2 font-light text-[#7A5A61]">
             <MapPin className="h-4 w-4 text-[#E91E63]" />
-            333 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600
+            431 ซอยปลัดมณฑล, ต.เมืองใต้ อ.เมืองศรีสะเกษ จ.ศรีสะเกษ 33000
           </p>
           <a
-            href="https://www.google.com/maps/dir/?api=1&destination=The+Peninsula+Bangkok"
+            href="https://www.google.com/maps/dir/?api=1&destination=15.1179069,104.3254308&destination_place_id=ChIJx9B2NdriFjERXwpsWt1fYOI"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 block w-full rounded-full bg-[#C62828] py-3 text-sm tracking-[0.3em] text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.99]"
           >
-            DIRECTION
+            นำทางไปยังสถานที่จัดงาน
           </a>
         </Reveal>
       </section>
