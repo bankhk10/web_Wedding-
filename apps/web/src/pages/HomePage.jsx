@@ -6,11 +6,11 @@ import {
   MapPin,
   Maximize2,
   MessageCircle,
-  PenLine,
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "@/components/common/Reveal";
+import GuestbookSection from "@/components/common/GuestbookSection";
 import {
   Dialog,
   DialogClose,
@@ -294,80 +294,8 @@ function GallerySlider() {
   );
 }
 
-function GuestbookDialog({ open, onOpenChange }) {
-  const [sent, setSent] = useState(false);
-  const [name, setName] = useState("");
-  const [wish, setWish] = useState("");
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="rounded-3xl border border-[#F3C7D5] bg-white p-6 shadow-[0_24px_80px_rgba(142,27,27,0.16)] sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-center font-medium tracking-[0.2em] text-[#8E1B1B]">
-            DIGITAL GUESTBOOK
-          </DialogTitle>
-          <DialogDescription className="text-center font-light text-[#7A5A61]">
-            เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา
-          </DialogDescription>
-        </DialogHeader>
-        {sent ? (
-          <p className="py-8 text-center font-light text-[#7A5A61]">
-            ขอบคุณสำหรับคำอวยพรนะคะ/ครับ
-          </p>
-        ) : (
-          <form
-            className="space-y-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
-          >
-            <div className="space-y-2">
-              <label
-                htmlFor="gb-name"
-                className="text-sm font-medium text-[#3A1F24]"
-              >
-                ชื่อของคุณ
-              </label>
-              <input
-                id="gb-name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-full border border-[#F3C7D5] bg-[#FFF9FA] px-4 py-2 font-light text-[#3A1F24] outline-none transition-colors placeholder:text-[#B8909A] focus:border-[#E91E63] focus:ring-2 focus:ring-[#FCE4EC]"
-              />
-            </div>
-            <div className="space-y-2">
-              <label
-                htmlFor="gb-wish"
-                className="text-sm font-medium text-[#3A1F24]"
-              >
-                คำอวยพร
-              </label>
-              <textarea
-                id="gb-wish"
-                required
-                rows={4}
-                value={wish}
-                onChange={(e) => setWish(e.target.value)}
-                className="w-full rounded-2xl border border-[#F3C7D5] bg-[#FFF9FA] px-4 py-2 font-light text-[#3A1F24] outline-none transition-colors placeholder:text-[#B8909A] focus:border-[#E91E63] focus:ring-2 focus:ring-[#FCE4EC]"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full rounded-full bg-[#C62828] py-2.5 tracking-[0.2em] text-white shadow-[0_10px_24px_rgba(198,40,40,0.2)] transition-colors hover:bg-[#8E1B1B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
-            >
-              ส่งคำอวยพร
-            </button>
-          </form>
-        )}
-      </DialogContent>
-    </Dialog>
-  );
-}
-
 export default function HomePage() {
   const { days, hours, mins } = useCountdown();
-  const [gbOpen, setGbOpen] = useState(false);
 
   return (
     <main className="bg-[#FFF9FA] font-light text-[#3A1F24]">
@@ -573,24 +501,7 @@ export default function HomePage() {
       </section>
 
       {/* Guestbook */}
-      <section className="mx-auto my-6 max-w-3xl rounded-[2rem] border border-[#F7D8E2] bg-[#FCE4EC]/70 px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
-        <Reveal>
-          <h2 className="text-3xl font-medium tracking-[0.25em] text-[#8E1B1B]">
-            DIGITAL GUESTBOOK
-          </h2>
-          <p className="mt-8 text-lg italic leading-relaxed text-[#7A5A61]">
-            เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา
-            ร่วมอวยพรให้เราทั้งคู่ได้ที่นี่
-          </p>
-          <button
-            onClick={() => setGbOpen(true)}
-            className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#E91E63] bg-white px-8 py-2.5 text-sm font-medium text-[#C62828] shadow-[0_8px_20px_rgba(198,40,40,0.08)] transition-colors hover:bg-[#FCE4EC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E91E63] focus-visible:ring-offset-2 active:scale-[0.98]"
-          >
-            <PenLine className="w-4 h-4" />
-            เขียนคำอวยพรดิจิตอล
-          </button>
-        </Reveal>
-      </section>
+      <GuestbookSection />
 
       {/* Venue */}
       <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">

@@ -1,0 +1,38 @@
+services:
+  php:
+    build:
+      context: ./docker/php
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: mysql
+      DB_NAME: wedding
+      DB_USER: wedding_dev
+      DB_PASSWORD: wedding_dev_password
+    volumes:
+      - ./api:/var/www/html/api:ro
+      - ./config:/var/www/html/config:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: wedding
+      MYSQL_USER: wedding_dev
+      MYSQL_PASSWORD: wedding_dev_password
+      MYSQL_ROOT_PASSWORD: wedding_root_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - wedding_mysql_data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  wedding_mysql_data:
