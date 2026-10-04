@@ -15,5 +15,8 @@
 	},
 	"workspaces": [
 		"apps/*"
-	]
+	],
+	"dependencies": {
+		"sharp": "^0.35.5"
+	}
 }
