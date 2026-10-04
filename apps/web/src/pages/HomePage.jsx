@@ -11,6 +11,9 @@ import {
   Utensils,
   Sparkles,
   Clock,
+  Gift,
+  Copy,
+  Check,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "@/components/common/Reveal";
@@ -581,6 +584,73 @@ export default function HomePage() {
 
       {/* Guestbook */}
       <GuestbookSection />
+
+      {/* อย่าลืมเช็กการ import ด้านบน:
+    import { Gift, Copy, Check } from "lucide-react";
+*/}
+
+      <section className="mx-auto my-6 max-w-xl rounded-[2rem] bg-white px-6 py-12 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-16">
+        <Reveal>
+          <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-[#FFF0F4] text-[#C62828] ring-1 ring-[#F3C7D5]">
+            <Gift className="h-5 w-5" />
+          </div>
+          <h2 className="mt-3 text-xl font-medium tracking-tight text-[#8E1B1B] sm:text-2xl">
+            ส่งของขวัญให้บ่าว-สาว
+          </h2>
+          <p className="mx-auto mt-2 max-w-sm text-xs leading-relaxed text-[#7A5A61] sm:text-sm">
+            สำหรับท่านที่ไม่สะดวกมาร่วมงาน
+            หรือประสงค์จะร่วมแสดงความยินดีผ่านของขวัญ
+            สามารถร่วมสนับสนุนการเริ่มต้นชีวิตคู่ของเราได้ที่นี่ค่ะ/ครับ
+          </p>
+          <div className="mx-auto mt-4 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#E91E63] to-transparent" />
+        </Reveal>
+
+        {/* Card แสดง QR Code บัญชีเดียว (บัญชีคู่) */}
+        <Reveal delay={0.1}>
+          <div className="mx-auto mt-8 flex max-w-sm flex-col items-center rounded-2xl border border-[#F7D8E2] bg-[#FFF9FA]/60 p-6 shadow-sm transition-all hover:border-[#E91E63]/40 hover:shadow-md">
+            <span className="rounded-full bg-[#8E1B1B]/10 px-3 py-1 text-xs font-semibold tracking-wider text-[#8E1B1B]">
+              บัญชีคู่บ่าวสาว (Opal & Bank)
+            </span>
+
+            {/* กรอบแสดงรูป QR Code */}
+            <div className="mt-4 aspect-square w-52 overflow-hidden rounded-2xl border border-[#F3C7D5] bg-white p-3 shadow-inner sm:w-56">
+              <img
+                src={`${UP}/time/IMG_6887.JPEG`} // ใส่ชื่อไฟล์รูป QR Code ของคุณที่โฟลเดอร์รูปภาพ
+                alt="QR Code สำหรับส่งของขวัญให้บ่าว-สาว"
+                className="h-full w-full object-contain"
+                loading="lazy"
+              />
+            </div>
+
+            {/* ข้อมูลบัญชี */}
+            <h3 className="mt-4 text-base font-medium text-[#3A1F24]">
+              นายอรรถพล มงคล และ น.ส. อสมาภรณ์ สุคะตะ
+            </h3>
+            <p className="mt-0.5 text-xs text-[#7A5A61]">ธนาคารกสิกรไทย</p>
+            <p className="mt-1 font-mono text-base font-semibold tracking-wider text-[#8E1B1B]">
+              073-3-35035-0
+            </p>
+
+            {/* ปุ่มกดคัดลอกเลขบัญชี */}
+            <button
+              type="button"
+              onClick={(e) => {
+                navigator.clipboard.writeText("0733350350"); // ใส่เลขบัญชีแบบตัวเลขล้วนที่นี่
+                const btn = e.currentTarget;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<span class="flex items-center gap-1 text-emerald-600">✓ คัดลอกเลขบัญชีแล้ว</span>`;
+                setTimeout(() => {
+                  btn.innerHTML = originalText;
+                }, 2000);
+              }}
+              className="mt-4 flex items-center gap-1.5 rounded-full border border-[#F3C7D5] bg-white px-5 py-2 text-xs font-medium text-[#7A5A61] shadow-sm transition-all hover:border-[#C62828] hover:text-[#C62828] active:scale-95"
+            >
+              <Copy className="h-3.5 w-3.5" />
+              <span>คัดลอกเลขบัญชี</span>
+            </button>
+          </div>
+        </Reveal>
+      </section>
 
       {/* Venue */}
       <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
