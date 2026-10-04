@@ -24,19 +24,69 @@ import {
 const UP = "/images/b-p";
 
 const GALLERY = [
-  "wedding-couple-indoors-is-hugging-each-other-beautiful-model-woman-white-dress-man-suit-be-1-scaled.jpg",
-  "wedding-couple-groom-bride-posing-white-studio-2-scaled.jpg",
-  "wedding-couple-groom-bride-posing-white-studio-scaled.jpg",
-  "wedding-couple-groom-bride-posing-white-studio-1-scaled.jpg",
-  "wedding-couple-love-beautiful-bride-elegant-groom-black-background-stylish-newlywed-coup-scaled.jpg",
-  "wedding-couple-indoors-is-hugging-each-other-beautiful-model-woman-white-dress-man-suit-be-scaled.jpg",
-  "young-couple-wedding-day-scaled.jpg",
-  "young-couple-wedding-day-3-scaled.jpg",
-  "young-couple-wedding-day-5-scaled.jpg",
-  "woman-white-dress-is-kneeling-floor-with-man-wearing-tutu-scaled.jpg",
-  "man-woman-pose-front-gray-background-1-scaled.jpg",
-  "man-woman-pose-photo-with-woman-holding-flowers-scaled.jpg",
-].map((f) => `${UP}/2025/03/${f}`);
+  "1.JPG",
+  "2.JPG",
+  "3.JPG",
+  "4.JPG",
+  "5.JPG",
+  "6.JPG",
+  "7.JPG",
+  "8.JPG",
+  "9.JPG",
+  "10.JPEG",
+  "11.JPG",
+  "12.JPG",
+  "13.JPG",
+  "14.JPG",
+  "15.JPG",
+  "16.JPEG",
+  "17.JPG",
+  "18.JPG",
+  "19.JPEG",
+  "20.JPG",
+  "21.JPG",
+  "22.JPG",
+  "23.JPEG",
+  "24.JPEG",
+  "25.JPG",
+  "26.jpeg",
+  "27.jpeg",
+  "28.jpeg",
+  "29.JPG",
+  "30.jpeg",
+  "31.jpeg",
+  "32.jpeg",
+  "33.JPG",
+  "34.JPG",
+  "35.JPG",
+  "36.JPG",
+  "37.JPG",
+  "38.JPG",
+  "39.JPG",
+  "40.JPG",
+  "41.JPG",
+  "42.JPG",
+  "43.JPG",
+  "44.JPG",
+  "45.JPG",
+  "46.JPG",
+  "47.JPG",
+  "48.JPG",
+  "49.jpeg",
+  "50.jpeg",
+  "51.jpeg",
+  "52.jpeg",
+  "53.jpeg",
+  "54.jpeg",
+  "55.jpeg",
+  "56.jpeg",
+  "57.jpeg",
+  "58.jpeg",
+  "59.JPG",
+  "60.JPG",
+  "61.jpeg",
+  "62.jpeg",
+].map((f) => `${UP}/show/${f}`);
 
 const TARGET = new Date("2026-11-22T00:00:00+07:00").getTime();
 
@@ -336,16 +386,16 @@ export default function HomePage() {
         <div className="grid items-start grid-cols-1 gap-12 mt-14 justify-items-center md:grid-cols-2">
           <Reveal y={40}>
             <img
-              src={`${UP}/2025/03/R24-053_04.png`}
-              alt="Bride — นางสาวชลธิชา สุขเกษม"
+              src={`${UP}/1/p.jpg`}
+              alt="Bride — นางสาวอสมาภรณ์ สุคะตะ"
               className="w-4/5 max-w-sm"
               loading="lazy"
             />
           </Reveal>
           <Reveal y={40} delay={0.15}>
             <img
-              src={`${UP}/2025/03/R24-053_05.png`}
-              alt="Groom — นายอครินทร ภูวนาถ"
+              src={`${UP}/1/b.jpg`}
+              alt="Groom — นายอรรถพล มงคล"
               className="w-[82%] max-w-sm"
               loading="lazy"
             />
@@ -424,8 +474,8 @@ export default function HomePage() {
         </p>
         <Reveal delay={0.1}>
           <img
-            src={`${UP}/2025/03/R24-053-03-768x723.jpg`}
-            alt="Cha and Art"
+            src={`${UP}/2/vsm-70.jpg`}
+            alt="Opal and Bank"
             className="mx-auto mt-10 w-full max-w-3xl rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
             loading="lazy"
           />
@@ -447,7 +497,7 @@ export default function HomePage() {
             Gallery
           </h2>
         </Reveal>
-        <Reveal delay={0.1}>
+        {/* <Reveal delay={0.1}>
           <div className="mx-auto mt-10 aspect-video w-full max-w-2xl overflow-hidden rounded-2xl border border-[#F3C7D5] bg-white shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
             <iframe
               src="https://www.youtube-nocookie.com/embed/3sxwcJh4Q5s?controls=1"
@@ -458,7 +508,7 @@ export default function HomePage() {
               loading="lazy"
             />
           </div>
-        </Reveal>
+        </Reveal> */}
         <Reveal delay={0.15}>
           <div className="mt-12">
             <GallerySlider />
