@@ -529,7 +529,7 @@ export default function HomePage() {
             Gallery
           </h2>
         </Reveal>
-        {/* <Reveal delay={0.1}>
+        <Reveal delay={0.1}>
           <div className="mx-auto mt-10 aspect-video w-full max-w-2xl overflow-hidden rounded-2xl border border-[#F3C7D5] bg-white shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
             <iframe
               src="https://www.youtube-nocookie.com/embed/3sxwcJh4Q5s?controls=1"
@@ -540,7 +540,7 @@ export default function HomePage() {
               loading="lazy"
             />
           </div>
-        </Reveal> */}
+        </Reveal>
         <Reveal delay={0.15}>
           <div className="mt-12">
             <GallerySlider />
@@ -600,7 +600,7 @@ export default function HomePage() {
           <p className="mx-auto mt-2 max-w-sm text-xs leading-relaxed text-[#7A5A61] sm:text-sm">
             สำหรับท่านที่ไม่สะดวกมาร่วมงาน
             หรือประสงค์จะร่วมแสดงความยินดีผ่านของขวัญ
-            สามารถร่วมสนับสนุนการเริ่มต้นชีวิตคู่ของเราได้ที่นี่ค่ะ/ครับ
+            สามารถร่วมสนับสนุนการเริ่มต้นชีวิตคู่ของเราได้ที่นี้ค่ะ/ครับ
           </p>
           <div className="mx-auto mt-4 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#E91E63] to-transparent" />
         </Reveal>
