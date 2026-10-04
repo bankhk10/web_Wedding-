@@ -530,16 +530,18 @@ export default function HomePage() {
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="mx-auto mt-10 aspect-video w-full max-w-2xl overflow-hidden rounded-2xl border border-[#F3C7D5] bg-white shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/3sxwcJh4Q5s?controls=1"
-              title="SAMPLE VDO MOBILE WEDDING CARD"
-              allow="autoplay; fullscreen"
-              allowFullScreen
-              className="w-full h-full border-0"
-              loading="lazy"
-            />
-          </div>
+          <Reveal delay={0.1}>
+            <div className="mx-auto mt-10 aspect-video w-full max-w-2xl overflow-hidden rounded-2xl border border-[#F3C7D5] bg-white shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
+              <iframe
+                src="https://www.youtube.com/embed/kEPQg8Wv04I"
+                title="WEDDING"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full border-0"
+                loading="lazy"
+              />
+            </div>
+          </Reveal>
         </Reveal>
         <Reveal delay={0.15}>
           <div className="mt-12">
