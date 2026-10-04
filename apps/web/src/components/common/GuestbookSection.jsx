@@ -180,12 +180,15 @@ function GuestbookForm() {
 
 export default function GuestbookSection() {
   return (
-    <section className="mx-auto my-6 max-w-3xl rounded-[2rem] border border-[#F7D8E2] bg-[#FCE4EC]/70 px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
+    <section className="mx-auto my-6 max-w-3xl rounded-[2rem] border border-[#F7D8E2] bg-[#FCE4EC]/70 px-6 py-10 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-15">
       <Reveal>
-        <h2 className="text-3xl font-medium tracking-[0.08em] text-[#8E1B1B]">
+        {/* ส่วนหัวข้อ (Title) */}
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-[#8E1B1B]">
           💌 คำอวยพรจากแขกของเรา
         </h2>
-        <p className="mt-6 text-lg italic leading-relaxed text-[#7A5A61]">
+
+        {/* ส่วนคำอธิบายรอง (Subtitle) */}
+        <p className="mt-6 text-sm sm:text-base font-light text-[#7A5A61] px-4 leading-relaxed">
           เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา
         </p>
         <GuestbookForm />
