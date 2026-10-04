@@ -549,8 +549,16 @@ export default function HomePage() {
       </section>
 
       {/* RSVP */}
-      <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
+      <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-5 shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-10">
         <div className="grid items-center grid-cols-1 gap-12 mt-12 md:grid-cols-2">
+          <Reveal delay={0.15}>
+            <img
+              src={`${UP}/time/IMG_6884.JPEG`}
+              alt="Opal and Bank"
+              className="mx-auto w-full max-w-md rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
+              loading="lazy"
+            />
+          </Reveal>
           <Reveal className="text-center">
             <p className="mx-auto max-w-md text-lg italic leading-relaxed text-[#3A1F24]">
               <strong className="font-medium">
@@ -570,14 +578,6 @@ export default function HomePage() {
             >
               กดเพื่อลงทะเบียนเข้าร่วมงาน
             </a>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <img
-              src={`${UP}/time/IMG_6884.JPEG`}
-              alt="Opal and Bank"
-              className="mx-auto w-full max-w-md rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
-              loading="lazy"
-            />
           </Reveal>
         </div>
       </section>
