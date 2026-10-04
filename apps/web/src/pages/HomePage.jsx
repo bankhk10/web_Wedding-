@@ -324,23 +324,27 @@ export default function HomePage() {
           <img
             src={`${UP}/2024/12/Asset-18.png`}
             alt="The honour of your presence is requested at the marriage celebration of"
-            className="w-full max-w-2xl mx-auto"
+            className="mx-auto w-full max-w-2xl"
           />
         </Reveal>
-        <div className="grid items-start grid-cols-1 gap-12 mt-14 justify-items-center md:grid-cols-2">
-          <Reveal y={40}>
+
+        <div className="mt-14 grid grid-cols-1 items-start justify-items-center gap-12 md:grid-cols-2">
+          {/* ฝั่งเจ้าสาว: เพิ่ม className="flex justify-center w-full" ที่ Reveal และ mx-auto ที่ img */}
+          <Reveal y={40} className="flex w-full justify-center">
             <img
               src={`${UP}/1/p.jpg`}
               alt="Bride — นางสาวอสมาภรณ์ สุคะตะ"
-              className="w-4/5 max-w-sm"
+              className="mx-auto w-4/5 max-w-sm"
               loading="lazy"
             />
           </Reveal>
-          <Reveal y={40} delay={0.15}>
+
+          {/* ฝั่งเจ้าบ่าว: เพิ่ม className="flex justify-center w-full" ที่ Reveal และ mx-auto ที่ img */}
+          <Reveal y={40} delay={0.15} className="flex w-full justify-center">
             <img
               src={`${UP}/1/b.jpg`}
               alt="Groom — นายอรรถพล มงคล"
-              className="w-[82%] max-w-sm"
+              className="mx-auto w-[82%] max-w-sm"
               loading="lazy"
             />
           </Reveal>
