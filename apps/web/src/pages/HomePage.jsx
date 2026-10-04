@@ -254,7 +254,7 @@ function GallerySlider() {
           </div>
 
           <div
-            className="flex shrink-0 gap-2 overflow-x-auto px-4 pb-5 pt-2 [scrollbar-width:thin]"
+            className="flex shrink-0 gap-2 overflow-x-auto px-4 pb-5 pt-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             aria-label="Gallery thumbnails"
           >
             {GALLERY.map((src, index) => (
