@@ -431,7 +431,7 @@ export default function HomePage() {
         <Reveal delay={0.1}>
           <div className="relative mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-[#FCE4EC] shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
             <img
-              src={`${UP}/time/IMG_6881.JPEG`}
+              src={`${UP}/time/IMG_6888.JPEG`}
               alt="Opal and Bank"
               className="w-full object-cover transition-transform duration-700 hover:scale-105"
               loading="lazy"
