@@ -7,6 +7,10 @@ import {
   Maximize2,
   MessageCircle,
   X,
+  HeartHandshake,
+  Utensils,
+  Sparkles,
+  Clock,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "@/components/common/Reveal";
@@ -399,35 +403,85 @@ export default function HomePage() {
         </Reveal> */}
       </section>
 
+      {/* Import เพิ่มด้านบนถ้ายังไม่มี:
+    import { HeartHandshake, Utensils, Sparkles, Clock } from "lucide-react";
+*/}
+
       {/* Schedule */}
       <section className="mx-auto my-6 max-w-5xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
-        {/* <Reveal>
-          <img
-            src={`${UP}/2024/12/Asset-21.png`}
-            alt="Schedule"
-            className="w-full max-w-xl mx-auto"
-            loading="lazy"
-          />
-        </Reveal> */}
-        <p className="text-3xl font-medium text-[#8E1B1B] bg-gradient-to-r from-[#d91818] to-[#E91E63] bg-clip-text text-transparent">
-          กำหนดการงานแต่งงาน
-        </p>
+        <Reveal>
+          <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#C62828]">
+            <Clock className="w-3.5 h-3.5" />
+            <span>Wedding Itinerary</span>
+          </div>
+          <h2 className="mt-3 text-3xl font-medium tracking-tight text-[#8E1B1B] sm:text-4xl">
+            กำหนดการงานแต่งงาน
+          </h2>
+          <div className="mx-auto mt-4 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#E91E63] to-transparent" />
+        </Reveal>
+
+        {/* รูปภาพคู่พรีเวดดิ้งประกอบ */}
         <Reveal delay={0.1}>
-          <img
-            src={`${UP}/2/vsm-70.jpg`}
-            alt="Opal and Bank"
-            className="mx-auto mt-10 w-full max-w-3xl rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
-            loading="lazy"
-          />
+          <div className="relative mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-[#FCE4EC] shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
+            <img
+              src={`${UP}/2/vsm-70.jpg`}
+              alt="Opal and Bank"
+              className="w-full object-cover transition-transform duration-700 hover:scale-105"
+              loading="lazy"
+            />
+          </div>
         </Reveal>
-        <Reveal delay={0.15}>
-          <img
-            src={`${UP}/2025/03/R24-053.png`}
-            alt="กำหนดการงานแต่งงาน"
-            className="w-full max-w-2xl mx-auto mt-10"
-            loading="lazy"
-          />
-        </Reveal>
+
+        {/* Timeline Schedule Cards */}
+        <div className="mx-auto mt-12 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
+          {[
+            {
+              time: "18.00 น.",
+              titleTh: "พิธีแลกคำมั่นสัญญา",
+              titleEn: "Vow Ceremony",
+              icon: HeartHandshake,
+            },
+            {
+              time: "19.00 น.",
+              titleTh: "ร่วมรับประทานอาหาร",
+              titleEn: "Wedding Dinner",
+              icon: Utensils,
+            },
+            {
+              time: "20.00 น.",
+              titleTh: "ฉลองมงคลสมรส",
+              titleEn: "After Party",
+              icon: Sparkles,
+            },
+          ].map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <Reveal key={item.time} delay={0.15 + index * 0.08}>
+                <div className="group relative flex flex-col items-center rounded-2xl border border-[#F7D8E2] bg-gradient-to-b from-[#FFF9FA] to-[#FFF0F4]/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#E91E63]/40 hover:shadow-[0_12px_30px_rgba(198,40,40,0.12)]">
+                  {/* Icon Badge */}
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#C62828] shadow-sm ring-1 ring-[#F3C7D5] transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#C62828] group-hover:text-white">
+                    <Icon className="w-5 h-5" />
+                  </div>
+
+                  {/* Time */}
+                  <span className="mt-4 rounded-full bg-[#8E1B1B]/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-[#8E1B1B]">
+                    {item.time}
+                  </span>
+
+                  {/* Title TH */}
+                  <h3 className="mt-3 text-base font-medium text-[#3A1F24]">
+                    {item.titleTh}
+                  </h3>
+
+                  {/* Title EN */}
+                  <p className="mt-0.5 text-xs font-light tracking-wide text-[#7A5A61]/90">
+                    {item.titleEn}
+                  </p>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
       </section>
 
       {/* Gallery */}
@@ -481,7 +535,7 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.15}>
             <img
-              src={`${UP}/2025/03/bride-groom-pose-photo-2-768x1152.jpg`}
+              src={`${UP}/2/vsm-70.jpg`}
               alt="Opal and Bank"
               className="mx-auto w-full max-w-md rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
               loading="lazy"
