@@ -653,7 +653,7 @@ export default function HomePage() {
       </section>
 
       {/* Venue */}
-      <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-16 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-24">
+      <section className="mx-auto my-6 max-w-6xl rounded-[2rem] bg-white px-6 py-10 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-10">
         <Reveal>
           <MapPin className="mx-auto h-6 w-6 text-[#E91E63]" />
           <h2 className="mt-3 text-2xl font-medium text-[#8E1B1B]">
