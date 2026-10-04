@@ -428,7 +428,7 @@ export default function HomePage() {
         <Reveal delay={0.1}>
           <div className="relative mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-[#FCE4EC] shadow-[0_14px_36px_rgba(142,27,27,0.08)]">
             <img
-              src={`${UP}/2/vsm-70.jpg`}
+              src={`${UP}/time/IMG_6881.JPEG`}
               alt="Opal and Bank"
               className="w-full object-cover transition-transform duration-700 hover:scale-105"
               loading="lazy"
@@ -441,20 +441,20 @@ export default function HomePage() {
           {[
             {
               time: "18.00 น.",
-              titleTh: "พิธีแลกคำมั่นสัญญา",
-              titleEn: "Vow Ceremony",
+              titleTh: "Vow Ceremony",
+              titleEn: "",
               icon: HeartHandshake,
             },
             {
               time: "19.00 น.",
-              titleTh: "ร่วมรับประทานอาหาร",
-              titleEn: "Wedding Dinner",
+              titleTh: "Wedding Dinner",
+              titleEn: "",
               icon: Utensils,
             },
             {
               time: "20.00 น.",
-              titleTh: "ฉลองมงคลสมรส",
-              titleEn: "After Party",
+              titleTh: "After Party",
+              titleEn: "",
               icon: Sparkles,
             },
           ].map((item, index) => {
@@ -485,6 +485,37 @@ export default function HomePage() {
               </Reveal>
             );
           })}
+        </div>
+
+        <div className="mt-10 pt-8 border-t border-[#FCE4EC] text-center">
+          <p className="text-xs uppercase tracking-[0.25em] text-[#C62828] font-medium">
+            Dress Code
+          </p>
+          <h3 className="mt-1 text-lg font-medium text-[#8E1B1B]">
+            ธีมสีเครื่องแต่งกาย
+          </h3>
+
+          {/* วงกลม Palette สี */}
+          <div className="mt-5 flex justify-center items-center gap-3 sm:gap-4">
+            {[
+              { name: "Baby Pink", hex: "#f5b0e6" },
+              { name: "Red", hex: "#ba0d0d" },
+              { name: "Burgundy", hex: "#8E1B1B" },
+            ].map((item) => (
+              <div
+                key={item.name}
+                className="flex flex-col items-center gap-1.5"
+              >
+                <span
+                  className="h-9 w-9 sm:h-11 sm:w-11 rounded-full shadow-md transition-transform hover:scale-110 ring-2 ring-white/80"
+                  style={{ backgroundColor: item.hex }}
+                />
+                <span className="text-[11px] text-[#7A5A61] font-light hidden sm:inline">
+                  {item.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -539,7 +570,7 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.15}>
             <img
-              src={`${UP}/2/vsm-70.jpg`}
+              src={`${UP}/time/IMG_6884.JPEG`}
               alt="Opal and Bank"
               className="mx-auto w-full max-w-md rounded-2xl border border-[#FCE4EC] object-cover shadow-[0_14px_36px_rgba(142,27,27,0.08)]"
               loading="lazy"
