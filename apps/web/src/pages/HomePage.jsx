@@ -488,26 +488,24 @@ export default function HomePage() {
               </Reveal>
             );
           })}
-
-    
         </div>
 
-              {/* Video Guestbook Notice */}
-          <Reveal delay={0.2}>
-            <div className="mt-8 mx-auto w-full max-w-4xl px-2">
-              <div className="flex w-full items-center justify-center rounded-2xl border border-dashed border-[#F3A4B5] bg-gradient-to-r from-[#FFF5F7] via-[#FCE4EC]/50 to-[#FFF5F7] px-6 py-4 shadow-[0_8px_20px_rgba(233,30,99,0.06)]">
-                <p className="text-base sm:text-lg font-normal text-[#8E1B1B] leading-relaxed text-center">
-                  ในวันงานมีจุด{" "}
-                  <span className="font-semibold text-[#C62828]">
-                    🎥 Video Guestbook 📞💖👰🏻‍♀️🤵🏻
-                  </span>{" "}
-                  <span className="inline-block">
-                    อย่าลืมไปฝากคำอวยพรถึงบ่าวสาวด้วยนะคะ/ครับ
-                  </span>
-                </p>
-              </div>
+        {/* Video Guestbook Notice */}
+        <Reveal delay={0.2}>
+          <div className="mt-8 mx-auto w-full max-w-4xl px-2">
+            <div className="flex w-full items-center justify-center rounded-2xl border border-dashed border-[#F3A4B5] bg-gradient-to-r from-[#FFF5F7] via-[#FCE4EC]/50 to-[#FFF5F7] px-6 py-4 shadow-[0_8px_20px_rgba(233,30,99,0.06)]">
+              <p className="text-base sm:text-lg font-normal text-[#8E1B1B] leading-relaxed text-center">
+                ในวันงานมีจุด{" "}
+                <span className="font-semibold text-[#C62828]">
+                  🎥 Video Guestbook 📞💖👰🏻‍♀️🤵🏻
+                </span>{" "}
+                <span className="inline-block">
+                  อย่าลืมไปฝากคำอวยพรถึงบ่าวสาวด้วยนะคะ/ครับ
+                </span>
+              </p>
             </div>
-          </Reveal>
+          </div>
+        </Reveal>
 
         <div className="mt-10 pt-8 border-t border-[#FCE4EC] text-center">
           <p className="text-xs uppercase tracking-[0.25em] text-[#C62828] font-medium">
@@ -539,6 +537,9 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+        <p className="mt-6 text-lg font-bold text-[#8E1B1B]">
+          #OPALBANKGETMARRIED
+        </p>
       </section>
 
       {/* Gallery */}
