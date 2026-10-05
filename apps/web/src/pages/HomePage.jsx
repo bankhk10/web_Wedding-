@@ -518,7 +518,7 @@ export default function HomePage() {
           {/* วงกลม Palette สี */}
           <div className="mt-5 flex justify-center items-center gap-3 sm:gap-4">
             {[
-              { name: "Baby Pink", hex: "#f5b0e6" },
+              { name: "Baby Pink", hex: "#f7dfe7" },
               { name: "Red", hex: "#ba0d0d" },
               { name: "Burgundy", hex: "#8E1B1B" },
             ].map((item) => (
@@ -548,6 +548,7 @@ export default function HomePage() {
           <h2 className="text-3xl font-medium tracking-wide text-[#8E1B1B]">
             Gallery
           </h2>
+        
         </Reveal>
         <Reveal delay={0.1}>
           <Reveal delay={0.1}>
@@ -562,12 +563,17 @@ export default function HomePage() {
               />
             </div>
           </Reveal>
+          
         </Reveal>
         <Reveal delay={0.15}>
           <div className="mt-12">
             <GallerySlider />
           </div>
         </Reveal>
+          {/* ข้อความหมายเหตุ */}
+          <p className="mt-6 text-sm sm:text-base font-light italic text-[#7A5A61]">
+            **หมายเหตุ : ไม่มีจัด Gallery รูปพรีเวดดิ้งหน้างานนะคะ/ครับ 😆📸**
+          </p>
       </section>
 
       {/* RSVP */}
@@ -607,10 +613,8 @@ export default function HomePage() {
       {/* Guestbook */}
       <GuestbookSection />
 
-      {/* อย่าลืมเช็กการ import ด้านบน:
-    import { Gift, Copy, Check } from "lucide-react";
-*/}
 
+      {/* Gift */}
       <section className="mx-auto my-6 max-w-xl rounded-[2rem] bg-white px-6 py-12 text-center shadow-[0_16px_50px_rgba(142,27,27,0.06)] md:my-10 md:py-16">
         <Reveal>
           <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-[#FFF0F4] text-[#C62828] ring-1 ring-[#F3C7D5]">
